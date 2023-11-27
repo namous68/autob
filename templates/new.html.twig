@@ -1,0 +1,33 @@
+{# templates/annonce/new.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une Annonce{% endblock %}
+
+{% block body %}
+    <h1>Créer une Annonce</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.titre) }}
+    {{ form_row(form.datePublication) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.ref) }}
+    {{ form_row(form.misEnCirculation) }}
+    {{ form_row(form.kilometrage) }}
+    {{ form_row(form.prix) }}
+
+    {# Ajoutez ce bloc pour le champ modèle #}
+    <div class="form-group">
+        <label for="{{ form.model.vars.id }}">Modèle</label>
+        {{ form_widget(form.model, { 'attr': {'class': 'form-control'}, 'full_name': form.model.vars.full_name|replace({'annonce[model]': 'annonce_model'}) }) }}
+    </div>
+
+    {{ form_row(form.images) }}
+    <button type="submit">Enregistrer</button>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/annonce.js') }}"></script>
+{% endblock %}

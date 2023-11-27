@@ -1,0 +1,16 @@
+{# templates/annonce/edit.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier l'Annonce{{ annonce.titre }}{% endblock %}
+
+{% block body %}
+    <h1>Modifier l'Annonce "{{ annonce.titre }}"</h1>
+
+    {{ form_start(editForm) }}
+    {{ form_widget(editForm) }}
+    <button type="submit">Enregistrer les modifications</button>
+    {{ form_end(editForm) }}
+
+    <a href="{{ path('annonce_list') }}">Annuler</a>
+{% endblock %}

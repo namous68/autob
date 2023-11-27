@@ -1,0 +1,30 @@
+{# templates/annonce/show.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail de l'Annonce{% endblock %}
+
+{% block body %}
+    <h1>Détail de l'Annonce</h1>
+
+    <dl>
+        <dt>Titre</dt>
+        <dd>{{ annonce.titre }}</dd>
+
+        <dt>Description</dt>
+        <dd>{{ annonce.description }}</dd>
+
+        <dt>Prix</dt>
+        <dd>{{ annonce.prix }}</dd>
+
+        <dt>Mis en Circulation</dt>
+        <dd>{{ annonce.misEnCirculation }}</dd>
+
+        <dt>Kilométrage</dt>
+        <dd>{{ annonce.kilometrage }}</dd>
+
+        <dt>Date de Publication</dt>
+        <dd>{{ annonce.datePublication|date('Y-m-d H:i:s') }}</dd>
+        {# Ajoutez d'autres champs en fonction de vos besoins #}
+    </dl>
+{% endblock %}

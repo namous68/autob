@@ -1,0 +1,17 @@
+{# templates/annonce/delete.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Supprimer l'Annonce{{ annonce.titre }}{% endblock %}
+
+{% block body %}
+    <h1>Supprimer l'Annonce "{{ annonce.titre }}"</h1>
+
+    <p>Êtes-vous sûr de vouloir supprimer cette annonce ?</p>
+
+    {{ form_start(deleteForm) }}
+    <button type="submit">Oui, supprimer</button>
+    {{ form_end(deleteForm) }}
+
+    <a href="{{ path('annonce_list') }}">Annuler</a>
+{% endblock %}

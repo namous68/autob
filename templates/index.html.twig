@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonces index{% endblock %}
+
+{% block body %}
+    <h1>Annonces index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Subtitle</th>
+                <th>Description</th>
+                <th>Price</th>
+              
+            </tr>
+        </thead>
+        <tbody>
+        {% for annonce in annonces %}
+            <tr>
+                <td>{{ annonce.id }}</td>
+                <td>{{ annonce.titre }}</td>
+                <td>{{ annonce.description }}</td>
+                <td>{{ annonce.prix }}</td>
+                <td>{{ annonce.misEnCirculation }}</td>
+                <td>{{ annonce.kilometrage }}</td>
+                <td>{{ annonce.datePublication|date('Y-m-d H:i:s') }}</td>
+                <td>
+                    <a href="{{ path('app_annonces_show', {'id': annonce.id}) }}">show</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="17">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_annonce_new') }}">Create new</a>
+{% endblock %}
+
+{% block javascripts %}
+   
+{% endblock %}
