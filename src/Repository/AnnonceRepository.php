@@ -45,4 +45,18 @@ class AnnonceRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+public function searchByCriteria($marque, $modele, $prixMin)
+    {
+        $query = $this->createQueryBuilder('a')
+        ->leftJoin('a.marque', 'm')
+        ->where('m.nom LIKE :marque')
+        ->andWhere('a.prix >= :prixMin')
+        ->setParameter('marque', "%$marque%")
+        ->setParameter('prixMin', $prixMin)
+        ->getQuery();
+
+        return $query->getResult();
+    }
 }

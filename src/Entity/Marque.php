@@ -10,14 +10,10 @@ use Doctrine\Common\Collections\Collection;
 #[ORM\Entity(repositoryClass: MarqueRepository::class)]
 class Marque
 {
- /**
-     * @ORM\OneToMany(targetEntity=Annonce::class, mappedBy="marque")
-     */
+    #[ORM\OneToMany(targetEntity: Annonce::class, mappedBy: 'marque')]
     private Collection $annonces;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Model::class, mappedBy="marque")
-     */
+    #[ORM\OneToMany(targetEntity: Model::class, mappedBy: 'marque')]
     private Collection $models;
 
     public function __construct()
@@ -72,5 +68,50 @@ class Marque
     public function __toString(): string
     {
         return $this->getNom();
+    }
+
+
+    public function addAnnonce(Annonce $annonce): self
+{
+    if (!$this->annonces->contains($annonce)) {
+        $this->annonces[] = $annonce;
+        $annonce->setMarque($this);
+    }
+
+    return $this;
+}
+
+public function removeAnnonce(Annonce $annonce): self
+{
+    if ($this->annonces->removeElement($annonce)) {
+        // set the owning side to null (unless already changed)
+        if ($annonce->getMarque() === $this) {
+            $annonce->setMarque(null);
+        }
+    }
+
+    return $this;
+}
+
+public function addModel(Model $model): self
+    {
+        if (!$this->models->contains($model)) {
+            $this->models[] = $model;
+            $model->setMarque($this);
+        }
+
+        return $this;
+    }
+
+    public function removeModel(Model $model): self
+    {
+        if ($this->models->removeElement($model)) {
+            // set the owning side to null (unless already changed)
+            if ($model->getMarque() === $this) {
+                $model->setMarque(null);
+            }
+        }
+
+        return $this;
     }
 }

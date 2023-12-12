@@ -45,11 +45,12 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('SellCar');
+            ->setTitle('Admin Dashboard');
     }
 
     public function configureMenuItems(): iterable
     {
+        if ($this->isGranted('ROLE_ADMIN')){
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
         yield MenuItem::linkToCrud('Annonce', 'fas fa-list', Annonce::class);
@@ -59,5 +60,23 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Model', 'fas fa-list', Model::class);
         yield MenuItem::linkToCrud('Professionnel', 'fas fa-list', Professionnel::class);
         yield MenuItem::linkToCrud('User', 'fas fa-list', User::class);
+
+
+
+        }if ($this->isGranted('ROLE_PROFESSIONAL')) {
+        
+            yield MenuItem::linkToCrud('Annonce', 'fas fa-list', Annonce::class);
+            yield MenuItem::linkToCrud('Garage', 'fas fa-list', Garage::class);
+        
+    
+        }
+       // return $menuItems;
     }
+
+
+    
+
+    
+
+
 }

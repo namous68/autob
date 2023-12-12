@@ -1,46 +1,68 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Annonces index{% endblock %}
+{% block title %}Bienvenue sur notre site{% endblock %}
 
 {% block body %}
-    <h1>Annonces index</h1>
+<div class="container">
+    <section>
+        <p> Utilisez le formulaire de recherche pour trouver la voiture de vos rêves.</p>
+    </section>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Subtitle</th>
-                <th>Description</th>
-                <th>Price</th>
-              
-            </tr>
-        </thead>
-        <tbody>
-        {% for annonce in annonces %}
-            <tr>
-                <td>{{ annonce.id }}</td>
-                <td>{{ annonce.titre }}</td>
-                <td>{{ annonce.description }}</td>
-                <td>{{ annonce.prix }}</td>
-                <td>{{ annonce.misEnCirculation }}</td>
-                <td>{{ annonce.kilometrage }}</td>
-                <td>{{ annonce.datePublication|date('Y-m-d H:i:s') }}</td>
-                <td>
-                    <a href="{{ path('app_annonces_show', {'id': annonce.id}) }}">show</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="17">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <section>
+        <form action="{{ path('app_annonces_search') }}" method="get">
+            <!-- Vos champs de recherche existants -->
+            <label for="marque">Marque :</label>
+            <input type="text" name="marque" id="marque">
 
-    <a href="{{ path('app_annonce_new') }}">Create new</a>
-{% endblock %}
+            <label for="modele">Modèle :</label>
+            <input type="text" name="modele" id="modele">
 
-{% block javascripts %}
-   
+            <label for="prix_min">Prix minimum :</label>
+            <input type="number" name="prix_min" id="prix_min">
+
+            <button type="submit">Rechercher</button>
+        </form>
+    </section>
+
+    {% if annonces is not empty %}
+    <section>
+        <h2>Résultats de la recherche :</h2>
+        <table class="table">
+            <!-- Affichez vos résultats de recherche -->
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Prix</th>
+                    <th>Mis En Circulation</th>
+                    <th>Kilometrage</th>
+                    <th>Date de Publication</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for annonce in annonces %}
+                <tr>
+                    <td>{{ annonce.titre }}</td>
+                    <td>{{ annonce.description }}</td>
+                    <td>{{ annonce.prix }}</td>
+                    <td>{{ annonce.misEnCirculation }}</td>
+                    <td>{{ annonce.kilometrage }}</td>
+                    <td>{{ annonce.datePublication|date('Y-m-d H:i') }}</td>
+                    <td>
+                        <a href="{{ path('app_annonces_show', {'id': annonce.id}) }}">show</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    {% else %}
+    <section>
+        <p>Aucun résultat trouvé.</p>
+    </section>
+    {% endif %}
+</div>
+
+<footer>
+    <!-- Ajouter des info
 {% endblock %}

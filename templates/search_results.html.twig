@@ -1,0 +1,39 @@
+{# templates/search_results.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h1>Annonces index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Mis En Circulation</th>
+                <th>Kilometrage</th>
+                <th>Date de Publication</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for annonce in annonces %}
+                <tr>
+                    <td>{{ annonce.titre }}</td>
+                    <td>{{ annonce.description }}</td>
+                    <td>{{ annonce.prix }}</td>
+                    <td>{{ annonce.misEnCirculation }}</td>
+                    <td>{{ annonce.kilometrage }}</td>
+                    <td>{{ annonce.datePublication|date('Y-m-d H:i') }}</td>
+                    <td>
+                        <a href="{{ path('app_annonces_show', {'id': annonce.id}) }}" class="btn btn-primary">Show</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">Aucune annonce trouvée.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

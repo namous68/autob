@@ -14,6 +14,9 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class AnnonceType extends AbstractType
 {
@@ -33,24 +36,26 @@ class AnnonceType extends AbstractType
             
         ])
 
+        ->add('marque', MarqueType::class, [
+            
+            'required' => true,
+        ])
         
         ->add('model', ModelType::class, [
            
             'required' => true,
         ])
-        ->add('marque', MarqueType::class, [
-            
-            'required' => true,
-        ])
+        
     ->add('garage', GarageType::class)
-             // Ajoutez un champ pour la collection d'images
-             ->add('images', CollectionType::class, [
-                'entry_type' => ImageType::class,
-                'allow_add' => true,
-                'by_reference' => false,
-                'allow_delete' => true,
-                'prototype' => true,
-                'label' => false,
+            
+    // Ajoutez un champ pour la collection d'images
+             
+    ->add('imageFile', FileType::class, [
+        'required' => false,
+    ])
+        
+            ->add('save', SubmitType::class, [
+                'label' => 'Save',
             ]);
         ;
     }
@@ -59,6 +64,7 @@ class AnnonceType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Annonce::class,
+            'methode' => 'GET',
         ]);
     }
 }

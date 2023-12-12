@@ -10,9 +10,7 @@ use Doctrine\Common\Collections\Collection;
 #[ORM\Entity(repositoryClass: GarageRepository::class)]
 class Garage
 {
-/**
-     * @ORM\OneToMany(targetEntity=Annonce::class, mappedBy="garage")
-     */
+    #[ORM\OneToMany(targetEntity: Annonce::class, mappedBy: 'garage')]
     private Collection $annonces;
 
     public function __construct()
@@ -99,7 +97,7 @@ class Garage
         return $this->adress2;
     }
 
-    public function setAdress2(?string $adress2): static
+    public function setAdress2(?string $adress2)
     {
         $this->adress2 = $adress2;
 
@@ -111,7 +109,7 @@ class Garage
         return $this->ville;
     }
 
-    public function setVille(string $ville): static
+    public function setVille(string $ville)
     {
         $this->ville = $ville;
 
@@ -123,10 +121,39 @@ class Garage
         return $this->codePostale;
     }
 
-    public function setCodePostale(string $codePostale): static
+    public function setCodePostale(string $codePostale)
     {
         $this->codePostale = $codePostale;
 
         return $this;
     }
+
+
+    public function addAnnonce(Annonce $annonce): self
+    {
+        if (!$this->annonces->contains($annonce)) {
+            $this->annonces[] = $annonce;
+            $annonce->setGarage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnnonce(Annonce $annonce): self
+    {
+        if ($this->annonces->removeElement($annonce)) {
+            // set the owning side to null (unless already changed)
+            if ($annonce->getGarage() === $this) {
+                $annonce->setGarage(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+{
+    return $this->nom; 
+}
+
 }

@@ -4,6 +4,11 @@ namespace App\Entity;
 
 use App\Repository\ProfessionnelRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\Annotation\IsGranted;
+
+/**
+ * @IsGranted("ROLE_PROFESSIONAL")
+ */
 
 #[ORM\Entity(repositoryClass: ProfessionnelRepository::class)]
 class Professionnel
@@ -47,7 +52,7 @@ class Professionnel
         return $this->nom;
     }
 
-    public function setNom(string $nom): static
+    public function setNom(string $nom)
     {
         $this->nom = $nom;
 
@@ -59,7 +64,7 @@ class Professionnel
         return $this->prenom;
     }
 
-    public function setPrenom(string $prenom): static
+    public function setPrenom(string $prenom)
     {
         $this->prenom = $prenom;
 
@@ -71,7 +76,7 @@ class Professionnel
         return $this->adressMail;
     }
 
-    public function setAdressMail(string $adressMail): static
+    public function setAdressMail(string $adressMail)
     {
         $this->adressMail = $adressMail;
 
@@ -83,7 +88,7 @@ class Professionnel
         return $this->numeroTel;
     }
 
-    public function setNumeroTel(string $numeroTel): static
+    public function setNumeroTel(string $numeroTel)
     {
         $this->numeroTel = $numeroTel;
 
@@ -95,7 +100,7 @@ class Professionnel
         return $this->numeroSiret;
     }
 
-    public function setNumeroSiret(?string $numeroSiret): static
+    public function setNumeroSiret(?string $numeroSiret)
     {
         $this->numeroSiret = $numeroSiret;
 
@@ -107,7 +112,7 @@ class Professionnel
         return $this->login;
     }
 
-    public function setLogin(string $login): static
+    public function setLogin(string $login)
     {
         $this->login = $login;
 
@@ -119,7 +124,7 @@ class Professionnel
         return $this->motDePass;
     }
 
-    public function setMotDePass(string $motDePass): static
+    public function setMotDePass(string $motDePass)
     {
         $this->motDePass = $motDePass;
 
@@ -131,7 +136,7 @@ class Professionnel
         return $this->estAdmin;
     }
 
-    public function setEstAdmin(bool $estAdmin): static
+    public function setEstAdmin(bool $estAdmin)
     {
         $this->estAdmin = $estAdmin;
 

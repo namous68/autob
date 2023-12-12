@@ -13,7 +13,14 @@ class MarqueType extends AbstractType
     {
         $builder
             ->add('nom')
-        ;
+            ->add('models', CollectionType::class, [
+                'entry_type' => ModelType::class,
+                'allow_add' => true,
+                'by_reference' => false,
+                'allow_delete' => true,
+                'prototype' => true,
+                'label' => false,
+            ]);
     }
 
    

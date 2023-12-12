@@ -4,11 +4,19 @@ namespace App\Entity;
 
 use App\Repository\CarburantRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Annonce;
+use Doctrine\Common\Collections\Collection;
+
+
+
 
 #[ORM\Entity(repositoryClass: CarburantRepository::class)]
 class Carburant
 {
-    #[ORM\Id]
+    #[ORM\OneToMany(targetEntity: Annonce::class, mappedBy: 'carburant')]
+     private Collection $annonces;
+   
+     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
@@ -26,10 +34,15 @@ class Carburant
         return $this->type;
     }
 
-    public function setType(string $type): static
+    public function setType(string $type) 
     {
         $this->type = $type;
 
         return $this;
     }
+
+    public function __toString()
+{
+    return $this->type; 
+}
 }

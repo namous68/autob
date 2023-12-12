@@ -21,7 +21,8 @@
         "symfony/security-bundle": "6.3.*",
         "symfony/twig-bundle": "6.3.*",
         "symfony/validator": "6.3.*",
-        "symfony/yaml": "6.3.*"
+        "symfony/yaml": "6.3.*",
+        "vich/uploader-bundle": "^1.14"
     },
     "require-dev": {
         "symfony/maker-bundle": "^1.51"

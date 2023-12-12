@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Model;
+use App\Entity\Marque;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,6 +18,7 @@ class ModelType extends AbstractType
         ->add('marque', EntityType::class, [
             'class' => Marque::class,
             'choice_label' => 'nom',
+            'placeholder' => 'Sélectionnez une marque',
            
         ]);
         ;

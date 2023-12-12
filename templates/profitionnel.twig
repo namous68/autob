@@ -1,0 +1,5 @@
+
+
+{% if is_granted('ROLE_PROFESSIONAL') %}
+    <a href="{{ path('app_annonce_new') }}" class="btn btn-primary">Créer une annonce</a>
+{% endif %}

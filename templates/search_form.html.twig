@@ -1,0 +1,14 @@
+{# templates/search_form.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h2>Formulaire de Recherche</h2>
+
+    {{ form_start(form) }}
+    {{ form_row(form.marque) }}
+    {{ form_row(form.modele) }}
+    {{ form_row(form.prixMin) }}
+    {{ form_row(form.prixMax) }}
+    {{ form_row(form.rechercher) }}
+    {{ form_end(form) }}
+{% endblock %}

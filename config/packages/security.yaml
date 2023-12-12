@@ -22,6 +22,8 @@ security:
                 # where to redirect after logout
                 # target: app_any_route
 
+            
+            
             remember_me:
                 secret: '%kernel.secret%'
                 lifetime: 604800
@@ -38,7 +40,8 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/professional, roles: ROLE_PROFESSIONAL }
 
 when@test:
     security:
@@ -52,3 +55,4 @@ when@test:
                 cost: 4 # Lowest possible value for bcrypt
                 time_cost: 3 # Lowest possible value for argon
                 memory_cost: 10 # Lowest possible value for argon
+

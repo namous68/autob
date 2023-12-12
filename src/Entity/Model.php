@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Marque;
+
 use App\Repository\ModelRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,13 +12,14 @@ use Doctrine\Common\Collections\Collection;
 #[ORM\Entity(repositoryClass: ModelRepository::class)]
 class Model
 {
- /**
-     * @ORM\ManyToOne(targetEntity=Marque::class, inversedBy="models")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private ?Marque $marque = null;
+    #[ORM\ManyToOne(inversedBy: 'models')]
+    #[ORM\JoinColumn(name: 'marque_id', referencedColumnName: 'id', nullable: false)]  
+      private ?Marque $marque = null;
 
     
+    #[ORM\OneToMany(targetEntity: Model::class, mappedBy: 'marque')]
+    private Collection $models;
+
 
     public function getMarque(): ?Marque
     {
@@ -32,14 +34,16 @@ class Model
     }
 
 
- /**
-     * @ORM\OneToMany(targetEntity=Annonce::class, mappedBy="model")
-     */
+    #[ORM\OneToMany(targetEntity: Annonce::class, mappedBy: 'model')]
     private Collection $annonces;
 
+
+    /**
+     * @return Collection|Model[]
+     */
     public function __construct()
     {
-        $this->annonces = new ArrayCollection();
+        $this->models = new ArrayCollection();
     }
 
     /**
@@ -49,7 +53,15 @@ class Model
     {
         return $this->annonces;
     }
+/**
+     * @return Collection|Model[]
+     */
+    public function getModels(): Collection
+    {
+        return $this->models;
+    }
 
+    
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -75,4 +87,15 @@ class Model
 
         return $this;
     }
+
+    public function __toString()
+{
+    return $this->modelNom; // Remplacez 'nom' par le champ que vous voulez afficher
 }
+
+
+
+
+    
+}
+
