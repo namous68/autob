@@ -7,29 +7,19 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Annonce;
 
 use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
-//#[Vich\Uploadable]
 class Image
 {
-   
+    protected $kernel;
 
-    
-
-    public function getAnnonce(): ?Annonce
+    public function __construct(KernelInterface $kernel)
     {
-        return $this->annonce;
+        $this->kernel = $kernel;
     }
-
-    public function setAnnonce(?Annonce $annonce): self
-    {
-        $this->annonce = $annonce;
-
-        return $this;
-    }
-
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -42,20 +32,13 @@ class Image
     #[ORM\Column(length: 255)]
     private ?string $path = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?string $imageName = null;
 
-/**
-     * @Assert\File(
-     *     maxSize = "5M",
-     *     mimeTypes = {"image/jpeg", "image/png", "image/gif"},
-     *     mimeTypesMessage = "Veuillez télécharger une image valide (JPEG, PNG, GIF)"
-     * )
-     */
-    private ?File $imageFile = null;
-
-
+    private ?UploadedFile $uploadedFile = null;
 
     #[ORM\ManyToOne(targetEntity: Annonce::class, inversedBy: 'images')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, name: 'annonce_id')]
     private $annonce;
 
     public function getId(): ?int
@@ -80,29 +63,56 @@ class Image
         return $this->path;
     }
 
-    public function setPath(string $path): static
+    public function setImagePath(?string $imagePath): void
     {
-        $this->path = $path;
-
-        return $this;
+        $this->path = $imagePath;
     }
 
-    
-    public function getImageFile(): ?File
+    public function setImageName(?string $imageName): void
     {
-        return $this->imageFile;
+        $this->imageName = $imageName;
     }
 
-    public function setImageFile(?File $imageFile): void
+    public function getImageName(): ?string
     {
-        $this->imageFile = $imageFile;
-
-        
+        return $this->imageName;
     }
-    
-    public function uploadImage(string $uploadDir)
+
+    public function getUploadedFile(): ?UploadedFile
     {
-        $fileName = md5(uniqid()) . '.' . $this->imageFile->guessExtension();
-        $this->imageFile->move($uploadDir, $fileName);
+        return $this->uploadedFile;
+    }
+
+    public function setUploadedFile(?UploadedFile $uploadedFile): void
+    {
+        $this->uploadedFile = $uploadedFile;
+    }
+
+    public function uploadImage(?string $uploadDir)
+    {
+        // Vérifiez d'abord si un fichier a été fourni
+        $file = $this->getUploadedFile();
+
+        if ($file instanceof UploadedFile) {
+            $fileName = $this->generateUniqueFileName($file) . '.' . $file->guessExtension();
+            $file->move($uploadDir, $fileName);
+            // Mettez à jour le chemin avec le nom du fichier téléchargé
+            $this->setImagePath($fileName);
+        }
+    }
+
+    private function generateUniqueFileName(UploadedFile $file): string
+    {
+        $originalName = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+        $uniqueName = md5(uniqid());
+
+        return $uniqueName . '.' . $extension;
+    }
+
+    // Obtenez le répertoire de téléchargement
+    private function getUploadDir(): string
+    {
+        return './assets/js/images/uploads/images';
     }
 }

@@ -3,17 +3,22 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
-
-    {{ form_errors(registrationForm) }}
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+    <div class="registration-container">
+        <div class="left-section">
+            <h1>Register</h1>
+            {{ form_errors(registrationForm) }}
+            {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.userName) }}
+            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.plainPassword, { label: 'Password' }) }}
+            {{ form_row(registrationForm.role) }}
+            {{ form_row(registrationForm.agreeTerms) }}
+            <button type="submit" class="btn">Register</button>
+            {{ form_end(registrationForm) }}
+        </div>
+        <div class="image-section">
+            <!-- Ajoutez votre balise d'image ici -->
+            <img src="media/bmw-m-series-x6.jpg" alt="Description de l'image">
+        </div>
+    </div>
 {% endblock %}

@@ -1,0 +1,263 @@
+body {
+    background-color: white; /* Remplacez cette valeur par la couleur de fond souhaitée */
+    color: #000000; /* Couleur du texte dans le body, remplacez par la couleur souhaitée */
+    font-family: 'Arial', sans-serif; /* Exemple de police de caractères, remplacez par la police souhaitée */
+}
+
+header{
+    height: 70px;
+    background-color: #fff;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    border-bottom: #000000;
+    background-color: rgba(137, 131, 244, 0.424);
+}
+
+.logo-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 80px;
+}
+
+.logo-container a {
+    text-decoration: none; /* Supprimer le soulignement du lien */
+}
+.logo-container img {
+    margin-right: 10px; /* Ajustez la marge selon vos besoins */
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table, .table th, .table td {
+    border: 1px solid #ddd;
+}
+
+.table th, .table td {
+    padding: 8px;
+    text-align: left;
+}
+
+/* Ajoutez des styles au bouton "Show" */
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn:hover {
+    color: #fff;
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.container {
+    height: 550px;
+    width: 1400px;
+    margin: 0 auto; /* Centrer le conteneur horizontalement */
+    padding: 20px; /* Espace intérieur du conteneur */
+}
+
+.search-section {
+    /* Ajoutez vos styles spécifiques pour la section de recherche ici */
+    background-color: rgb(231, 231, 239);
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+
+.registration-container {
+    display: flex;
+    height: 100vh; /* 100% de la hauteur de la vue */
+    
+}
+
+.left-section {
+    flex: 1; /* La section de gauche prend autant d'espace que possible */
+    padding: 20px;
+    background-color: rgb(255, 255, 255);
+    height: 500px;
+}
+
+.image-section {
+    height: 400px;
+    flex: 1; /* La section d'image prend autant d'espace que possible */
+    padding: 20px;
+    background-color: white; /* Ajoutez une couleur de fond si nécessaire */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.image-section img {
+    max-width: 100%; /* Assurez-vous que l'image ne dépasse pas la largeur de la section */
+    max-height: 400px;
+}
+
+
+.registration-container {
+    display: flex;
+}
+
+.left-section {
+    flex: 1;
+    padding: 20px;
+    background-color: #ffffff;
+    margin-top: 70px;
+}
+
+.left-section h1 {
+    color: #333;
+}
+
+.image-section {
+    flex: 1;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 600px;
+    margin-top: -100px;
+    margin-top: 40px;
+}
+
+.image-section img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* Style spécifique au formulaire (ajustez selon vos besoins) */
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 60%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+
+
+.login-form {
+    width: 600px;
+    margin: auto;
+}
+
+.alert {
+    margin-top: 10px;
+}
+
+.left-section-log {
+    flex: 1;
+    background-color: transparent;
+    
+}
+.image-section-log {
+    flex: 1;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    margin-top: 160px;
+}
+.log-container {
+    display: flex;
+    height: 500px;
+    margin-top: 100px;
+    background-color: transparent;    
+}
+
+.login-page-body {
+    background-image: url('../media/téléchargement.png');
+}
+
+.search-container{
+    background-color: #0056b3;
+}
+
+.search-section{
+    display: flex;
+    background-color: white;
+    margin-top: 50px;
+}
+.image-section{
+   height: 400px;
+   width: 800px;
+   margin-top: -40px;
+}
+
+
+/* Styles par défaut */
+
+/* Styles pour les écrans plus petits */
+@media only screen and (max-width: 600px) {
+    .search-section {
+        /* Styles spécifiques pour la section de recherche sur les petits écrans */
+    }
+
+    .image-section {
+        /* Styles spécifiques pour la section d'image sur les petits écrans */
+    }
+
+    .results-section {
+        /* Styles spécifiques pour la section de résultats sur les petits écrans */
+    }
+
+    .no-results-section {
+        /* Styles spécifiques pour la section sans résultats sur les petits écrans */
+    }
+}
+
+/* Styles pour les écrans de taille moyenne */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+    .search-section {
+        /* Styles spécifiques pour la section de recherche sur les écrans de taille moyenne */
+    }
+
+    /* ... (ajoutez des styles supplémentaires au besoin) */
+}
+
+/* Styles pour les écrans plus grands */
+@media only screen and (min-width: 1025px) {
+    .search-section {
+        /* Styles spécifiques pour la section de recherche sur les grands écrans */
+    }
+
+    /* ... (ajoutez des styles supplémentaires au besoin) */
+}

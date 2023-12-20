@@ -50,6 +50,7 @@ class AnnonceController extends AbstractController
     ]);
     }
 
+    
 
     #[Route('annonce/new', name: 'app_annonce_new')]
     public function new(Request $request): Response
@@ -64,6 +65,8 @@ class AnnonceController extends AbstractController
         
         // Créez une nouvelle instance de l'entité Annonce
         $annonce = new Annonce();
+    
+        
        
 
         // Créez un formulaire associé à l'entité Annonce
@@ -73,18 +76,20 @@ class AnnonceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $uploadedFile = $form['imageFile']->getData();
-        
+            //$uploadedFile = $form['imageFile']->getData();
+            $uploadedFile = $form->get('imageFile')->getData();
+
+            $annonce->setImageFile($uploadedFile);
+
             if ($uploadedFile instanceof UploadedFile) {
                 $newFilename = Uuid::v4() . '.' . $uploadedFile->guessExtension();
-                $uploadedFile->move($this->getParameter('./assets/js/images/uploads/images/'), $newFilename);
-        
+                $uploadedFile->move($this->getParameter('kernel.project_dir') . 'public/media', $newFilename);
+
+                // Créez un nouvel objet File avec le nom de fichier et le contenu
+                $uploadedFile = new File($this->getParameter('kernel.project_dir') . 'public/media/' . $newFilename);
                 // Assurez-vous que la méthode setImageFile accepte un UploadedFile
                 $annonce->setImageFile($uploadedFile);
-            } else {
-                // Si aucun fichier n'a été téléchargé, assurez-vous que le champ imageFile est nul
-                $annonce->setImageFile(null);
-            }
+            } 
         
             // Enregistrez l'annonce dans la base de données
             $this->entityManager->persist($annonce);

@@ -2,67 +2,72 @@
 
 {% block title %}Bienvenue sur notre site{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('path/to/your/custom.css') }}">
+{% endblock %}
+
 {% block body %}
 <div class="container">
-    <section>
-        <p> Utilisez le formulaire de recherche pour trouver la voiture de vos rêves.</p>
-    </section>
+	<section class="search-section">
+		<div class="form">
+			<p>Utilisez le formulaire de recherche pour trouver la voiture de vos rêves.</p>
+			<form action="{{ path('app_annonces_search') }}" method="get">
+				<!-- Vos champs de recherche existants -->
+				<label for="marque">Marque :</label>
+				<input type="text" name="marque" id="marque">
 
-    <section>
-        <form action="{{ path('app_annonces_search') }}" method="get">
-            <!-- Vos champs de recherche existants -->
-            <label for="marque">Marque :</label>
-            <input type="text" name="marque" id="marque">
+				<label for="modele">Modèle :</label>
+				<input type="text" name="modele" id="modele">
 
-            <label for="modele">Modèle :</label>
-            <input type="text" name="modele" id="modele">
+				<label for="prix_min">Prix minimum :</label>
+				<input type="number" name="prix_min" id="prix_min">
 
-            <label for="prix_min">Prix minimum :</label>
-            <input type="number" name="prix_min" id="prix_min">
+				<button type="submit">Rechercher</button>
+			</form>
+		</div>
+		<div class="image-section">
+			<!-- Ajoutez votre balise d'image ici -->
+			<img src="media/search.png" alt="Description de l'image">
+		</div>
+	</div>
 
-            <button type="submit">Rechercher</button>
-        </form>
-    </section>
-
-    {% if annonces is not empty %}
-    <section>
-        <h2>Résultats de la recherche :</h2>
-        <table class="table">
-            <!-- Affichez vos résultats de recherche -->
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Prix</th>
-                    <th>Mis En Circulation</th>
-                    <th>Kilometrage</th>
-                    <th>Date de Publication</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for annonce in annonces %}
-                <tr>
-                    <td>{{ annonce.titre }}</td>
-                    <td>{{ annonce.description }}</td>
-                    <td>{{ annonce.prix }}</td>
-                    <td>{{ annonce.misEnCirculation }}</td>
-                    <td>{{ annonce.kilometrage }}</td>
-                    <td>{{ annonce.datePublication|date('Y-m-d H:i') }}</td>
-                    <td>
-                        <a href="{{ path('app_annonces_show', {'id': annonce.id}) }}">show</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </section>
-    {% else %}
-    <section>
-        <p>Aucun résultat trouvé.</p>
-    </section>
-    {% endif %}
+	{% if annonces is not empty %}
+		<section class="results-section">
+			<h2>Résultats de la recherche :</h2>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>Description</th>
+						<th>Prix</th>
+						<th>Mis En Circulation</th>
+						<th>Kilometrage</th>
+						<th>Date de Publication</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for annonce in annonces %}
+						<tr>
+							<td>{{ annonce.titre }}</td>
+							<td>{{ annonce.description }}</td>
+							<td>{{ annonce.prix }}</td>
+							<td>{{ annonce.misEnCirculation }}</td>
+							<td>{{ annonce.kilometrage }}</td>
+							<td>{{ annonce.datePublication|date('Y-m-d H:i') }}</td>
+							<td>
+								<a href="{{ path('app_annonces_show', {'id': annonce.id}) }}">show</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</section>
+	{% else %}
+		<section class="no-results-section">
+			<p>Aucun résultat trouvé.</p>
+		</section>
+	{% endif %}
 </div>
-
-<footer>
-    <!-- Ajouter des info
 {% endblock %}

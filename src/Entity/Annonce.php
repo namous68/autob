@@ -96,6 +96,8 @@ class Annonce
     #[ORM\Column(length: 255)]
     private ?string $titre = null;
 
+    
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $datePublication = null;
 
@@ -205,15 +207,16 @@ class Annonce
 
    
     #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'annonce', cascade: ['persist', 'remove'])]
-    private $images;
+    private  $images;
 
     // ...
 
-  /**
- * @var UploadedFile|null
- */
-private $imageFile;
+  // NOTE: This is not a mapped field of entity metadata, just a simple property.
+  #[Vich\UploadableField(mapping: 'products', fileNameProperty: 'imageName')]
+  private ?File $imageFile = null;
 
+  #[ORM\Column(nullable: true)]
+  private ?string $imageName = null;
     // ...
 
     public function getImageFile(): ?File
@@ -221,10 +224,14 @@ private $imageFile;
         return $this->imageFile;
     }
 
-    public function setImageFile(?UploadedFile $imageFile): void
-{
-    $this->imageFile = $imageFile;
-}
+    public function setImageFile(?File $imageFile): void
+    {
+        $this->imageFile = $imageFile;
+        // Si un fichier est fourni, mettez à jour également la propriété imageName
+        if ($imageFile instanceof File) {
+            $this->setImageName($imageFile->getFilename());
+        }
+    }
 
 
     public function __construct()
@@ -271,19 +278,45 @@ private $imageFile;
     // Ajoutez cette méthode pour gérer le téléchargement du fichier
     public function uploadImage(UploadedFile $file): string
     {
-        $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-        $path = $this->getUploadDir() . '/' . $fileName;
-        // Déplacez le fichier vers le répertoire souhaité
-        $file->move($this->getUploadDir(), $fileName);
+        // Utilisez la classe File pour manipuler le fichier
+    $fileObject = new File($file->getPathname());
 
-        
-        return $fileName;
+    // Obtenez le nom du fichier
+    $fileName = md5(uniqid()) . '.' . $fileObject->guessExtension();
+
+    // Déplacez le fichier vers le répertoire souhaité
+    $fileObject->move($this->getUploadDir(), $fileName);
+
+    // Mettez à jour la propriété imageName avec le nom du fichier téléchargé
+    $this->setImageName($fileName);
+
+    return $fileName;
     }
 
     // Ajoutez cette méthode pour obtenir le répertoire de téléchargement
     private function getUploadDir(): string
     {
         // Choisissez le répertoire de destination en fonction de votre structure de projet
-        return 'images/uploads/images';
+        return './public/media/';
     }
+
+  /**
+   * Get the value of imageName
+   */ 
+  public function getImageName()
+  {
+    return $this->imageName;
+  }
+
+  /**
+   * Set the value of imageName
+   *
+   * @return  self
+   */ 
+  public function setImageName($imageName)
+  {
+    $this->imageName = $imageName;
+
+    return $this;
+  }
 }

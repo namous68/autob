@@ -16,48 +16,49 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Component\HttpFoundation\File\File;
 
 class AnnonceType extends AbstractType
 {
+    private $imageFile;
+
+    public function setImageFile($imageFile)
+    {
+        $this->imageFile = $imageFile;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('titre', TextType::class)
-        ->add('datePublication', DateTimeType::class)
-        ->add('description', TextType::class)
-        ->add('ref', TextType::class)
-        ->add('misEnCirculation', IntegerType::class)
-        ->add('kilometrage', IntegerType::class)
-        ->add('prix', IntegerType::class)
-        ->add('carburant', EntityType::class, [
-            'class' => Carburant::class,
-            'choice_label' => 'type',
-            
-        ])
-
-        ->add('marque', MarqueType::class, [
-            
-            'required' => true,
-        ])
-        
-        ->add('model', ModelType::class, [
-           
-            'required' => true,
-        ])
-        
-    ->add('garage', GarageType::class)
-            
-    // Ajoutez un champ pour la collection d'images
-             
-    ->add('imageFile', FileType::class, [
-        'required' => false,
-    ])
-        
+            ->add('titre', TextType::class)
+            ->add('datePublication', DateTimeType::class)
+            ->add('description', TextType::class)
+            ->add('ref', TextType::class)
+            ->add('misEnCirculation', IntegerType::class)
+            ->add('kilometrage', IntegerType::class)
+            ->add('prix', IntegerType::class)
+            ->add('carburant', EntityType::class, [
+                'class' => Carburant::class,
+                'choice_label' => 'type',
+            ])
+            ->add('marque', MarqueType::class, [
+                'required' => true,
+            ])
+            ->add('model', ModelType::class, [
+                'required' => true,
+            ])
+            ->add('garage', GarageType::class)
+            ->add('imageFile', VichFileType::class, [
+                'label' => 'Image',
+                'required' => false,
+                'allow_delete' => true, // Optionnel : permet de supprimer l'image actuelle
+                'download_label' => 'Télécharger', // Optionnel : texte du lien de téléchargement
+            ])
             ->add('save', SubmitType::class, [
                 'label' => 'Save',
             ]);
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -66,5 +67,12 @@ class AnnonceType extends AbstractType
             'data_class' => Annonce::class,
             'methode' => 'GET',
         ]);
+    }
+
+    public function __construct($imageFilePath = null)
+    {
+        if ($imageFilePath !== null) {
+            $this->imageFile = new File($imageFilePath, false);
+        }
     }
 }

@@ -1,7 +1,11 @@
 # config/packages/vich_uploader.yaml
 vich_uploader:
     db_driver: orm
+    metadata:
+     type: attribute
+
     mappings:
         annonce_images:
             uri_prefix: ./assets/js/images/uploads/images
             upload_destination: '%kernel.project_dir%/public/images/uploads/images'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
