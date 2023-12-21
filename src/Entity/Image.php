@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Annonce;
+use APP\Entity\ImageHandler;
 
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -31,6 +32,9 @@ class Image
 
     #[ORM\Column(length: 255)]
     private ?string $path = null;
+
+    // Ajoutez cette propriété virtuelle
+    private $imageFile;
 
     #[ORM\Column(nullable: true)]
     private ?string $imageName = null;
@@ -68,6 +72,16 @@ class Image
         $this->path = $imagePath;
     }
 
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile): void
+    {
+        $this->imageFile = $imageFile;
+    }
+
     public function setImageName(?string $imageName): void
     {
         $this->imageName = $imageName;
@@ -88,17 +102,25 @@ class Image
         $this->uploadedFile = $uploadedFile;
     }
 
-    public function uploadImage(?string $uploadDir)
+    public function uploadImage($file)
     {
-        // Vérifiez d'abord si un fichier a été fourni
-        $file = $this->getUploadedFile();
+        // Générer un nom de fichier unique pour l'image
+        $filename = md5(uniqid()).'.'.$file->guessExtension();
 
-        if ($file instanceof UploadedFile) {
-            $fileName = $this->generateUniqueFileName($file) . '.' . $file->guessExtension();
-            $file->move($uploadDir, $fileName);
-            // Mettez à jour le chemin avec le nom du fichier téléchargé
-            $this->setImagePath($fileName);
-        }
+        // Déplacer le fichier dans le dossier d'upload
+        $file->move(
+            $this->getUploadRootDir(),
+            $filename
+        );
+
+        // Mettre à jour l'attribut "path" avec le nom de fichier unique
+        $this->path = $filename;
+    }
+
+    public function getUploadRootDir()
+    {
+        // Renvoyer le chemin absolu du dossier d'upload
+        return __DIR__.'./assets/js/images/uploads/images';
     }
 
     private function generateUniqueFileName(UploadedFile $file): string
@@ -115,4 +137,25 @@ class Image
     {
         return './assets/js/images/uploads/images';
     }
+
+    public function createImage($imageFile)
+    {
+        $image = new Image($imageFile);
+        $image->setImageFile($imageFile);
+        $image->uploadImage($imageFile);
+
+        // ...
+    }
+
+    public function getImageUrl()
+{
+    // Récupérer le chemin du fichier d'image
+    $path = $this->getPath();
+
+    // Construire l'URL de l'image
+    $baseUrl = './assets/js/images/uploads/images';
+    $imageUrl = $baseUrl . $path;
+
+    return $imageUrl;
+}
 }

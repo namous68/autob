@@ -249,37 +249,16 @@ class Annonce
         return $this->images;
     }
 
-    public function addImage(Image $image): self
-    {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
-            $image->setAnnonce($this);
-        }
+    
 
-        return $this;
-    }
-
-    public function removeImage(Image $image): self
-    {
-        if ($this->images->removeElement($image)) {
-            // Si la relation est définie comme CascadeType.REMOVE, supprimez également le fichier associé ici
-            // Assurez-vous d'ajouter le code nécessaire pour supprimer physiquement le fichier du répertoire
-            // unlink($this->getUploadDir() . '/' . $image->getFilename());
-            
-            // set the owning side to null (unless already changed)
-            if ($image->getAnnonce() === $this) {
-                $image->setAnnonce(null);
-            }
-        }
-
-        return $this;
-    }
+    
 
     // Ajoutez cette méthode pour gérer le téléchargement du fichier
     public function uploadImage(UploadedFile $file): string
     {
         // Utilisez la classe File pour manipuler le fichier
     $fileObject = new File($file->getPathname());
+    
 
     // Obtenez le nom du fichier
     $fileName = md5(uniqid()) . '.' . $fileObject->guessExtension();
@@ -289,6 +268,7 @@ class Annonce
 
     // Mettez à jour la propriété imageName avec le nom du fichier téléchargé
     $this->setImageName($fileName);
+   
 
     return $fileName;
     }

@@ -29,6 +29,8 @@ class AnnonceController extends AbstractController
     private $entityManager;
     private $slugger;
     private $annonceSearchService;
+    private $annonceImageUploader;
+
 
     // Injection de l'EntityManagerInterface dans le constructeur
     public function __construct(EntityManagerInterface $entityManager, SluggerInterface $slugger, AnnonceSearchService $annonceSearchService)
@@ -59,16 +61,9 @@ class AnnonceController extends AbstractController
          * @IsGranted("ROLE_PROFESSIONAL")
          */
         $user = $this->getUser();
-        
-
-        
-        
+      
         // Créez une nouvelle instance de l'entité Annonce
         $annonce = new Annonce();
-    
-        
-       
-
         // Créez un formulaire associé à l'entité Annonce
         $form = $this->createForm(AnnonceType::class, $annonce);
 
@@ -76,17 +71,18 @@ class AnnonceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //$uploadedFile = $form['imageFile']->getData();
-            $uploadedFile = $form->get('imageFile')->getData();
+            /**
+                 * @var UploadedFile $uploadedFile
+                 */
+            $uploadedFile = $form['imageFile']->getData();
 
-            $annonce->setImageFile($uploadedFile);
-
+        
             if ($uploadedFile instanceof UploadedFile) {
                 $newFilename = Uuid::v4() . '.' . $uploadedFile->guessExtension();
                 $uploadedFile->move($this->getParameter('kernel.project_dir') . 'public/media', $newFilename);
 
                 // Créez un nouvel objet File avec le nom de fichier et le contenu
-                $uploadedFile = new File($this->getParameter('kernel.project_dir') . 'public/media/' . $newFilename);
+               // $uploadedFile = new File($this->getParameter('kernel.project_dir') . 'public/media/' . $newFilename);
                 // Assurez-vous que la méthode setImageFile accepte un UploadedFile
                 $annonce->setImageFile($uploadedFile);
             } 
@@ -157,10 +153,11 @@ class AnnonceController extends AbstractController
 
 
 
-    return $this->render('index.html.twig', [
+    return $this->render('search_results.html.twig', [
         'annonces' => $annonces,
     ]);
 
+    
 }
 
 
