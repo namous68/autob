@@ -50,12 +50,16 @@ class AnnonceType extends AbstractType
                 'required' => true,
             ])
             ->add('garage', GarageType::class)
-            ->add('imageFile', VichFileType::class, [
+            ->add('imageFile', FileType::class, [
+                'mapped' => false,
                 'label' => 'Image',
                 'required' => false,
                 'allow_delete' => true, // Optionnel : permet de supprimer l'image actuelle
                 'download_label' => 'Télécharger', // Optionnel : texte du lien de téléchargement
-            ])
+                'attr' => [
+                    'accept' => 'image/*',
+                ],
+                ])
             ->add('save', SubmitType::class, [
                 'label' => 'Save',
             ]);
@@ -69,10 +73,5 @@ class AnnonceType extends AbstractType
         ]);
     }
 
-    public function __construct($imageFilePath = null)
-    {
-        if ($imageFilePath !== null) {
-            $this->imageFile = new File($imageFilePath, false);
-        }
-    }
+    
 }

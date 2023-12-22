@@ -8,6 +8,15 @@
     <h1>Détail de l'Annonce</h1>
 
     <dl>
+        {% if annonce.images is not empty %}
+            <dt>Image</dt>
+            <dd>
+            <div>
+{% for image in annonce.images %}
+                        <img src="{{ asset(image.getImageUrl) }}" alt="{{ image.legende }}">
+                    {% endfor %}                </div>
+            </dd>
+        {% endif %}
         <dt>Titre</dt>
         <dd>{{ annonce.titre }}</dd>
 

@@ -42,12 +42,8 @@ class AnnonceCrudController extends AbstractCrudController
             AssociationField::new('garage'),
 
            // Ajoutez ce champ pour l'upload d'images
-           ImageField::new('imageFile')
-          
-           ->setBasePath('./public/media') // Chemin vers le dossier où les images seront stockées
-           ->setUploadDir('./public/media') // Chemin vers le dossier web où les images seront téléchargées
-           ->setUploadedFileNamePattern('[randomhash].[extension]')
-           ->setLabel('Image'), // Étiquette du champ
+           CollectionField::new('images')
+           ->useEntryCrudForm(ImageCrudController::class)
 
         ];
     }

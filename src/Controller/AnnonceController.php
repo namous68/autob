@@ -22,6 +22,7 @@ use App\Service\AnnonceSearchService;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use App\Controller\Urlizer;
 
 class AnnonceController extends AbstractController
 {
@@ -55,53 +56,48 @@ class AnnonceController extends AbstractController
     
 
     #[Route('annonce/new', name: 'app_annonce_new')]
-    public function new(Request $request): Response
-    {
-        /**
-         * @IsGranted("ROLE_PROFESSIONAL")
-         */
-        $user = $this->getUser();
-      
-        // Créez une nouvelle instance de l'entité Annonce
-        $annonce = new Annonce();
-        // Créez un formulaire associé à l'entité Annonce
-        $form = $this->createForm(AnnonceType::class, $annonce);
+public function new(Request $request, SluggerInterface $slugger): Response
+{
+    /**
+     * @IsGranted("ROLE_PROFESSIONAL")
+     */
+    $user = $this->getUser();
+  
+    // Créez une nouvelle instance de l'entité Annonce
+    $annonce = new Annonce();
+    // Créez un formulaire associé à l'entité Annonce
+    $form = $this->createForm(AnnonceType::class, $annonce);
 
-        // Gérez la soumission du formulaire
-        $form->handleRequest($request);
+    // Gérez la soumission du formulaire
+    $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            /**
-                 * @var UploadedFile $uploadedFile
-                 */
-            $uploadedFile = $form['imageFile']->getData();
-
+    if ($form->isSubmitted() && $form->isValid()) {
+         /** @var UploadedFile $uploadedFile */
+        $uploadedFile = $form['imageFile']->getData();
         
-            if ($uploadedFile instanceof UploadedFile) {
-                $newFilename = Uuid::v4() . '.' . $uploadedFile->guessExtension();
-                $uploadedFile->move($this->getParameter('kernel.project_dir') . 'public/media', $newFilename);
-
-                // Créez un nouvel objet File avec le nom de fichier et le contenu
-               // $uploadedFile = new File($this->getParameter('kernel.project_dir') . 'public/media/' . $newFilename);
-                // Assurez-vous que la méthode setImageFile accepte un UploadedFile
-                $annonce->setImageFile($uploadedFile);
-            } 
+        $destination = $this->getParameter('kernel.project_dir').'/public/media/';
+        $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+        $newFilename = $slugger->slug($originalFilename)->toString() . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
         
-            // Enregistrez l'annonce dans la base de données
-            $this->entityManager->persist($annonce);
-            $this->entityManager->flush();
-        
-        
-            // Redirigez l'utilisateur vers la page d'accueil ou une autre page
-            return $this->redirectToRoute('app_home');
-        }
-        
+        $uploadedFile->move(
+            $destination, 
+            $newFilename
+        );
+        $annonce->setImageFile($uploadedFile);
+     
+        // Enregistrez l'annonce dans la base de données
+        $this->entityManager->persist($annonce);
+        $this->entityManager->flush();
     
-        // Affichez le formulaire dans le template
-        return $this->render('/new.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        // Redirigez l'utilisateur vers la page d'accueil ou une autre page
+        return $this->redirectToRoute('app_home');
     }
+
+    // Affichez le formulaire dans le template
+    return $this->render('/new.html.twig', [
+        'form' => $form->createView(),
+    ]);
+}
 
     #[Route('annonce/{id}', name: 'app_annonces_show', methods: ['GET'])]
     public function show($id, AnnonceRepository $annonceRepository): Response

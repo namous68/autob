@@ -17,10 +17,7 @@ class Image
 {
     protected $kernel;
 
-    public function __construct(KernelInterface $kernel)
-    {
-        $this->kernel = $kernel;
-    }
+    
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -65,6 +62,13 @@ class Image
     public function getPath(): ?string
     {
         return $this->path;
+    }
+
+    public function setPath(string $path): static
+    {
+        $this->path = $path;
+
+        return $this;
     }
 
     public function setImagePath(?string $imagePath): void
@@ -153,9 +157,29 @@ class Image
     $path = $this->getPath();
 
     // Construire l'URL de l'image
-    $baseUrl = './assets/js/images/uploads/images';
+    $baseUrl = '/public/media/';
     $imageUrl = $baseUrl . $path;
 
     return $imageUrl;
 }
+
+    /**
+     * Get the value of annonce
+     */ 
+    public function getAnnonce()
+    {
+        return $this->annonce;
+    }
+
+    /**
+     * Set the value of annonce
+     *
+     * @return  self
+     */ 
+    public function setAnnonce($annonce)
+    {
+        $this->annonce = $annonce;
+
+        return $this;
+    }
 }

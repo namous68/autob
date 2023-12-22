@@ -212,8 +212,10 @@ class Annonce
     // ...
 
   // NOTE: This is not a mapped field of entity metadata, just a simple property.
-  #[Vich\UploadableField(mapping: 'products', fileNameProperty: 'imageName')]
+#[Vich\UploadableField(mapping: 'annonce_images', fileNameProperty: 'imageName')]
   private ?File $imageFile = null;
+
+
 
   #[ORM\Column(nullable: true)]
   private ?string $imageName = null;
@@ -224,13 +226,22 @@ class Annonce
         return $this->imageFile;
     }
 
-    public function setImageFile(?File $imageFile): void
+
+    
+     /**
+     * @param File|string|null $imageFile
+     */
+    public function setImageFile(File $imageFile): void
     {
+        if ($imageFile instanceof File || $imageFile === null) {
         $this->imageFile = $imageFile;
         // Si un fichier est fourni, mettez à jour également la propriété imageName
         if ($imageFile instanceof File) {
             $this->setImageName($imageFile->getFilename());
         }
+    } else {
+        throw new \InvalidArgumentException('Invalid argument type for setImageFile.');
+    }
     }
 
 
@@ -249,8 +260,27 @@ class Annonce
         return $this->images;
     }
 
-    
+    public function addImage(Image $image): static
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setAnnonce($this);
+        }
 
+        return $this;
+    }
+
+    public function removeImage(Image $image): static
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getAnnonce() === $this) {
+                $image->setAnnonce(null);
+            }
+        }
+
+        return $this;
+    }
     
 
     // Ajoutez cette méthode pour gérer le téléchargement du fichier

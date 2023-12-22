@@ -223,41 +223,9 @@ button {
 }
 
 
-/* Styles par défaut */
-
-/* Styles pour les écrans plus petits */
-@media only screen and (max-width: 600px) {
-    .search-section {
-        /* Styles spécifiques pour la section de recherche sur les petits écrans */
-    }
-
-    .image-section {
-        /* Styles spécifiques pour la section d'image sur les petits écrans */
-    }
-
-    .results-section {
-        /* Styles spécifiques pour la section de résultats sur les petits écrans */
-    }
-
-    .no-results-section {
-        /* Styles spécifiques pour la section sans résultats sur les petits écrans */
-    }
-}
-
-/* Styles pour les écrans de taille moyenne */
-@media only screen and (min-width: 601px) and (max-width: 1024px) {
-    .search-section {
-        /* Styles spécifiques pour la section de recherche sur les écrans de taille moyenne */
-    }
-
-    /* ... (ajoutez des styles supplémentaires au besoin) */
-}
-
-/* Styles pour les écrans plus grands */
-@media only screen and (min-width: 1025px) {
-    .search-section {
-        /* Styles spécifiques pour la section de recherche sur les grands écrans */
-    }
-
-    /* ... (ajoutez des styles supplémentaires au besoin) */
+.image_annonce{
+    height: 120px;
+    width: 90px;
+    background-color: #007bff;
+    
 }
