@@ -153,13 +153,11 @@ class Image
 
     public function getImageUrl()
 {
-    // Récupérer le chemin du fichier d'image
-    $path = $this->getPath();
+   
 
     // Construire l'URL de l'image
     $baseUrl = '/public/media/';
-    $imageUrl = $baseUrl . $path;
-
+    $imageUrl = $baseUrl . $this->path;
     return $imageUrl;
 }
 

@@ -1,5 +1,5 @@
 body {
-    background-color: white; /* Remplacez cette valeur par la couleur de fond souhaitée */
+    background-color: rgb(255, 254, 254); /* Remplacez cette valeur par la couleur de fond souhaitée */
     color: #000000; /* Couleur du texte dans le body, remplacez par la couleur souhaitée */
     font-family: 'Arial', sans-serif; /* Exemple de police de caractères, remplacez par la police souhaitée */
 }
@@ -147,6 +147,15 @@ header{
     max-height: 100%;
 }
 
+.image_annonce {
+    max-width: 100%; /* Assurez-vous que l'image ne dépasse pas la largeur du conteneur */
+    height: auto; /* Laissez la hauteur ajustée automatiquement pour conserver les proportions */
+    display: block; /* Élimine l'espace réservé sous l'image */
+    margin-bottom: 10px; /* Ajoute une marge en bas pour l'espace entre les images */
+    border: 1px solid #ddd; /* Ajoute une bordure légère autour de l'image */
+    border-radius: 5px; /* Ajoute des coins arrondis à l'image */
+}
+
 /* Style spécifique au formulaire (ajustez selon vos besoins) */
 form {
     margin-top: 20px;
@@ -229,3 +238,64 @@ button {
     background-color: #007bff;
     
 }
+
+/* Card */
+.card {
+    width: 18rem;
+    margin: 20px; /* Espace autour de la carte */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Ombre légère */
+    border-radius: 10px; /* Coins arrondis */
+    border-color: #000000;
+  }
+  
+  .card-img-top {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  
+  .card-body {
+    padding: 20px;
+    min-height: 150px;
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .card-text {
+    color: #555;
+  }
+  
+  .list-group-item {
+    background-color: #f8f9fa; /* Couleur de fond des éléments de la liste */
+  }
+  
+  .card-link {
+    color: #007bff; /* Couleur du lien */
+    text-decoration: none;
+    margin-right: 10px;
+  }
+  
+  .card-link:hover {
+    text-decoration: underline; /* Soulignement du lien au survol */
+  }
+  .results-section {
+    display: flex;
+    flex-wrap: wrap; /* Permet aux éléments de passer à la ligne si l'espace est insuffisant */
+    justify-content: space-between; /* Distribue les éléments de manière égale sur la ligne */
+  }
+
+  .image_annonce {
+    width: 100%;
+    height: 150px; /* Ajustez la hauteur selon vos besoins */
+    object-fit: cover; /* Évite l'étirement de l'image */
+  }
+  
+  /* slider*/
+  
+  
+
+

@@ -2,38 +2,66 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Détail de l'Annonce{% endblock %}
+{% block title %}Détail de l'Annonce
+{% endblock %}
 
 {% block body %}
-    <h1>Détail de l'Annonce</h1>
 
-    <dl>
-        {% if annonce.images is not empty %}
-            <dt>Image</dt>
-            <dd>
-            <div>
-{% for image in annonce.images %}
-                        <img src="{{ asset(image.getImageUrl) }}" alt="{{ image.legende }}">
-                    {% endfor %}                </div>
-            </dd>
-        {% endif %}
-        <dt>Titre</dt>
-        <dd>{{ annonce.titre }}</dd>
+  <div class="card" style="width: 18rem;">
+        <div>
+            {% for image in annonce.images|default([]) %}
+                <img class="image_annonce" src="{{ asset(image.getImageUrl()) }}" alt="{{ image.path }}">
+            {% endfor %}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+            <h2 class="card-text">Annonce :{{ annonce.titre }}.</h2>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Description :{{ annonce.description }}</li>
+            <li class="list-group-item">Prix :{{ annonce.prix }}</li>
+            <li class="list-group-item">Mis En Circulation :{{ annonce.misEnCirculation }}</li>
+            <li class="list-group-item">Kilometrage :{{ annonce.kilometrage }}</li>
+            <li class="list-group-item">Publié Le  :{{ annonce.datePublication|date('Y-m-d H:i') }}</li>
+        </ul>
+        <div class="card-body">
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+        </div>
+    </div>
+    <div class="card">
+        <h1>Détail de l'Annonce</h1>
 
-        <dt>Description</dt>
-        <dd>{{ annonce.description }}</dd>
+        <dl>
+            {% if annonce.images is not empty %}
+                <dt>Image</dt>
+                <dd>
+                    <div>
+                        {% for image in annonce.images %}
+                            <img class="image_annonce" src="{{ asset(image.getImageUrl) }}" alt="{{ image.path }}">
+                        {% endfor %}
+                    </div>
+                </dd>
+            {% endif %}
+            <dt>Titre</dt>
+            <dd>{{ annonce.titre }}</dd>
 
-        <dt>Prix</dt>
-        <dd>{{ annonce.prix }}</dd>
+            <dt>Description</dt>
+            <dd>{{ annonce.description }}</dd>
 
-        <dt>Mis en Circulation</dt>
-        <dd>{{ annonce.misEnCirculation }}</dd>
+            <dt>Prix</dt>
+            <dd>{{ annonce.prix }}</dd>
 
-        <dt>Kilométrage</dt>
-        <dd>{{ annonce.kilometrage }}</dd>
+            <dt>Mis en Circulation</dt>
+            <dd>{{ annonce.misEnCirculation }}</dd>
 
-        <dt>Date de Publication</dt>
-        <dd>{{ annonce.datePublication|date('Y-m-d H:i') }}</dd>
-        {# Ajoutez d'autres champs en fonction de vos besoins #}
-    </dl>
+            <dt>Kilométrage</dt>
+            <dd>{{ annonce.kilometrage }}</dd>
+
+            <dt>Date de Publication</dt>
+            <dd>{{ annonce.datePublication|date('Y-m-d H:i') }}</dd>
+            {# Ajoutez d'autres champs en fonction de vos besoins #}
+        </dl>
+    </div>
 {% endblock %}
+
