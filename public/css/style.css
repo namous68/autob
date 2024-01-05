@@ -1,7 +1,7 @@
 body {
     background-color: rgb(255, 254, 254); /* Remplacez cette valeur par la couleur de fond souhaitée */
     color: #000000; /* Couleur du texte dans le body, remplacez par la couleur souhaitée */
-    font-family: 'Arial', sans-serif; /* Exemple de police de caractères, remplacez par la police souhaitée */
+    font-family: 'Arial', sans-serif; 
 }
 
 header{
@@ -17,7 +17,7 @@ header{
 .logo-container {
     display: flex;
     justify-content: flex-start;
-    margin-top: 80px;
+    margin-top: 100px;
 }
 
 .logo-container a {
@@ -311,7 +311,8 @@ button {
 .card {
     width: 300px; /* Ajustez la largeur des cartes en fonction de vos besoins */
     margin: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    border: black;
 }
 
 .card-body {
@@ -328,7 +329,20 @@ button {
 }
 
 
-
-  
+.footer {
+    height: 20px;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+footer a {
+    color: #fff; /* Couleur du texte des liens */
+    text-decoration: none; /* Supprimer la soulignement par défaut des liens */
+    margin: 0 10px; /* Marge autour des liens pour l'espacement */
+}
+footer a:hover {
+    text-decoration: underline; /* Soulignement au survol */
+}  
 
 

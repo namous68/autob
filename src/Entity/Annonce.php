@@ -214,7 +214,7 @@ class Annonce
 
   // NOTE: This is not a mapped field of entity metadata, just a simple property.
  #[Vich\UploadableField(mapping: 'annonce_images', fileNameProperty: 'imageName')]
-  private ?File $imageFile = null;
+                                      private ?File $imageFile = null;
 
 
 
@@ -223,6 +223,18 @@ class Annonce
 
   #[ORM\ManyToMany(targetEntity: Contact::class, mappedBy: 'Annonce')]
   private Collection $contacts;
+
+  #[ORM\Column]
+  private ?bool $CameraDeRecul = null;
+
+  #[ORM\Column]
+  private ?bool $Gps = null;
+
+  #[ORM\Column]
+  private ?bool $Bluetooth = null;
+
+  #[ORM\Column]
+  private ?bool $Climatisation = null;
     // ...
 
     public function getImageFile(): ?File
@@ -358,6 +370,54 @@ class Annonce
       if ($this->contacts->removeElement($contact)) {
           $contact->removeAnnonce($this);
       }
+
+      return $this;
+  }
+
+  public function isCameraDeRecul(): ?bool
+  {
+      return $this->CameraDeRecul;
+  }
+
+  public function setCameraDeRecul(bool $CameraDeRecul): static
+  {
+      $this->CameraDeRecul = $CameraDeRecul;
+
+      return $this;
+  }
+
+  public function isGps(): ?bool
+  {
+      return $this->Gps;
+  }
+
+  public function setGps(bool $Gps): static
+  {
+      $this->Gps = $Gps;
+
+      return $this;
+  }
+
+  public function isBluetooth(): ?bool
+  {
+      return $this->Bluetooth;
+  }
+
+  public function setBluetooth(bool $Bluetooth): static
+  {
+      $this->Bluetooth = $Bluetooth;
+
+      return $this;
+  }
+
+  public function isClimatisation(): ?bool
+  {
+      return $this->Climatisation;
+  }
+
+  public function setClimatisation(bool $Climatisation): static
+  {
+      $this->Climatisation = $Climatisation;
 
       return $this;
   }

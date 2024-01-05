@@ -21,6 +21,7 @@ class SearchAnnonceType extends AbstractType
         ->add('modele', TextType::class, ['required' => false])
         ->add('prixMin', TextType::class, ['required' => false])
         ->add('prixMax', TextType::class, ['required' => false])
+        ->add('garage', TextType::class, ['required' => false])
         ->add('rechercher', SubmitType::class);
     }
 

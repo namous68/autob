@@ -8,6 +8,7 @@ use App\Entity\Annonce;
 use Symfony\Component\Form\AbstractType;
 use App\Form\ImageType;
 use App\Form\MarqueType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -50,6 +51,22 @@ class AnnonceType extends AbstractType
                 'required' => true,
             ])
             ->add('garage', GarageType::class)
+            ->add('cameraDeRecul', CheckboxType::class, [
+                'label' => 'Variable Booléenne 1',
+                'required' => false,
+            ])
+            ->add('gps', CheckboxType::class, [
+                'label' => 'Variable Booléenne 2',
+                'required' => false,
+            ])
+            ->add('bluetooth', CheckboxType::class, [
+                'label' => 'Variable Booléenne 1',
+                'required' => false,
+            ])
+            ->add('climatisation', CheckboxType::class, [
+                'label' => 'Variable Booléenne 2',
+                'required' => false,
+            ])
             ->add('imageFile', FileType::class, [
                 'mapped' => false,
                 'label' => 'Image',

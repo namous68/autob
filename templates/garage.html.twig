@@ -22,7 +22,7 @@
                                 <h2 class="card-title">{{ garage.nom }}</h2>
                                 <p class="card-text">Mobile Contact: {{ garage.numerotel }}</p>
                                 <p class="card-text">Adresse: {{ garage.adress1 }} {{ garage.adress2 }}, {{ garage.ville }} {{ garage.codepostale }}</p>
-                                 <a href="#" class="card-link">Annonce Du Garage</a>
+                                 <a href="#" class="card-link" data-garage="{{ garage.nom }}">Annonce Du Garage</a>
                                 {# Ajoutez d'autres champs en fonction de vos besoins #}
                             </div>
                         </div>
@@ -42,11 +42,11 @@
             annonceLinks.forEach(function (link) {
                 link.addEventListener('click', function (event) {
                     event.preventDefault();
-                    var garageName = this.getAttribute('data-garage');
+                    var garageNom = this.getAttribute('data-garage');
                     // Encodez le nom du garage pour l'URL
-                    var encodedGarageName = encodeURIComponent(garageName);
+                    var encodedGarageNom = encodeURIComponent(garageNom);
                     // Redirigez vers la page qui affiche les résultats de recherche pour le garage
-                    window.location.href = "{{ path('app_annonces_search') }}?garage=" + encodedGarageName;
+                    window.location.href = "{{ path('app_annonces_search') }}?garage=" + encodedGarageNom;
                 });
             });
         });

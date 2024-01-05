@@ -69,4 +69,19 @@ public function searchByCriteria($marque, $modele, $prixMin)
 
         return $qb->getQuery()->getResult();
     }
+
+
+     /**
+     * @param string $nom
+     * @return Annonce[]
+     */
+    public function findByGarageNom(string $nom): array
+    {
+        return $this->createQueryBuilder('a')
+            ->innerJoin('a.garage', 'g') // Supposons que la relation avec Garage s'appelle "garage"
+            ->andWhere('g.nom = :nom')
+            ->setParameter('nom', $nom)
+            ->getQuery()
+            ->getResult();
+    }
 }

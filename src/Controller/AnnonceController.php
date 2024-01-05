@@ -6,6 +6,7 @@ use App\Form\ContactType;
 use App\Entity\Marque;
 use App\Entity\Model;
 use App\Entity\Annonce;
+use App\Entity\Garage;
 use App\Entity\Image;
 use App\Form\AnnonceType;
 use Symfony\Component\HttpFoundation\Request;
@@ -103,6 +104,10 @@ public function new(Request $request, SluggerInterface $slugger): Response
             $newFilename
         );
         $annonce->setImageFile($uploadedFile);
+        $cameraDeRecul = $form->get('cameraDeRecul')->getData();
+        $gps = $form->get('gps')->getData();
+        $bluetooth = $form->get('bluetooth')->getData();
+        $climatisation = $form->get('climatisation')->getData();
      
         // Enregistrez l'annonce dans la base de données
         $this->entityManager->persist($annonce);
@@ -129,9 +134,11 @@ public function new(Request $request, SluggerInterface $slugger): Response
           //   throw $this->createNotFoundException('Annonce non trouvée');
          //}
  
+         $garage = $annonce->getGarage();
          // Afficher les détails de l'annonce dans le template
          return $this->render('/show.html.twig', [
              'annonce' => $annonce,
+             'garage' => $garage,
              
          ]);
         
@@ -158,6 +165,12 @@ public function new(Request $request, SluggerInterface $slugger): Response
     #[Route('/search', name: 'app_annonces_search', methods: ['GET'])]
     public function search(Request $request): Response
     {
+// Récupérer le nom du garage depuis la requête
+$nom = $request->query->get('garage');
+
+$annonceRepository = $this->entityManager->getRepository(Annonce::class);
+        $annonces = $annonceRepository->findByGarageNom($nom);
+
         $marque = $request->query->get('marque');
     $modele = $request->query->get('model');
     $prixMin = $request->query->get('prix_min');
@@ -170,6 +183,7 @@ public function new(Request $request, SluggerInterface $slugger): Response
 
     return $this->render('index.html.twig', [
         'annonces' => $annonces,
+        'nom' => $nom,
     ]);
 
     

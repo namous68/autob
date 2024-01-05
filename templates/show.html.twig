@@ -15,7 +15,7 @@
     <!-- Partie pour les images -->
     <div class="card-body">
         {% for image in annonce.images|default([]) %}
-            <img class="image_annonce" src="{{ asset(image.getImageUrl()) }}" alt="{{ image.path }}">
+            <img class="image_annonce" src="{{ asset( image.getImageUrl()) }}" alt="{{ image.path }}">
         {% endfor %}
     </div>
     </div>
@@ -38,6 +38,36 @@
     </div>
 	</div>
 </section>
+<h4 style="margin-left:-800px;">Point Fort</h4>
+<section class="options" style="margin-top: 20px; margin-left: -180px; display: flex; justify-content: space-between;">
+
+<p style="margin-right: 50px;"> <img src="{{ asset('media/icon/camera.png') }}" alt="Oui" style="width: 40px; max-width: 250px; border-radius: 10px";>
+    cameraDeRecul : {% if annonce.cameraDeRecul %}Oui{% else %}Non{% endif %}</p>
+    <p style="margin-right: 50px;"> <img src="{{ asset('media/icon/gps.png') }}" alt="Oui" style="width: 40px; max-width: 250px; border-radius: 10px";>
+	gps : {% if annonce.gps %}Oui{% else %}Non{% endif %}</p>
+	<p style="margin-right: 50px;"><img src="{{ asset('media/icon/bluetooth.png') }}" alt="Oui" style="width: 40px; max-width: 250px; border-radius: 10px";>
+	bluetooth : {% if annonce.bluetooth %}Oui{% else %}Non{% endif %}</p>
+    <p style="margin-right: 50px;"><img src="{{ asset('media/icon/climatisation.png') }}" alt="Oui" style="width: 40px; max-width: 250px; border-radius: 10px";>
+	climatisation : {% if annonce.climatisation %}Oui{% else %}Non{% endif %}</p>
+</section>
     
+	<section class="detailegarage">
+ <div class="card" style="width: 60rem; height: 15rem; margin-left: -300px;">
+  <div class="card-header">
+    Garage :<h4>{{ garage.nom }}</h4>
+  </div>
+  <div class="card-body">
+    <p class="card-text">Ce situe <br>
+	{{ garage.adress1}}
+	{{ garage.adress2}}
+	{{ garage.ville}}
+	{{ garage.codePostale}}
+	<br>
+	Contact Telephone :{{ garage.numerotel}}
+	</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+	</section>
 {% endblock %}
 

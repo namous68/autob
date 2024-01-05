@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
@@ -40,6 +41,11 @@ class AnnonceCrudController extends AbstractCrudController
             
            
             AssociationField::new('garage'),
+            
+            BooleanField::new('cameraDeRecul', 'cameraDeRecul'),
+            BooleanField::new('gps', 'gps'),
+            BooleanField::new('bluetooth', 'bluetooth'),
+            BooleanField::new('climatisation', 'climatisation'),
 
            // Ajoutez ce champ pour l'upload d'images
            CollectionField::new('images')
