@@ -13,6 +13,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
@@ -212,13 +213,16 @@ class Annonce
     // ...
 
   // NOTE: This is not a mapped field of entity metadata, just a simple property.
-#[Vich\UploadableField(mapping: 'annonce_images', fileNameProperty: 'imageName')]
+ #[Vich\UploadableField(mapping: 'annonce_images', fileNameProperty: 'imageName')]
   private ?File $imageFile = null;
 
 
 
   #[ORM\Column(nullable: true)]
   private ?string $imageName = null;
+
+  #[ORM\ManyToMany(targetEntity: Contact::class, mappedBy: 'Annonce')]
+  private Collection $contacts;
     // ...
 
     public function getImageFile(): ?File
@@ -248,6 +252,7 @@ class Annonce
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
     }
 
     // ... autres méthodes
@@ -329,4 +334,34 @@ class Annonce
 
     return $this;
   }
+
+  /**
+   * @return Collection<int, Contact>
+   */
+  public function getContacts(): Collection
+  {
+      return $this->contacts;
+  }
+
+  public function addContact(Contact $contact): static
+  {
+      if (!$this->contacts->contains($contact)) {
+          $this->contacts->add($contact);
+          $contact->addAnnonce($this);
+      }
+
+      return $this;
+  }
+
+  public function removeContact(Contact $contact): static
+  {
+      if ($this->contacts->removeElement($contact)) {
+          $contact->removeAnnonce($this);
+      }
+
+      return $this;
+  }
+
+ 
 }
+

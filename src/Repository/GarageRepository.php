@@ -45,4 +45,11 @@ class GarageRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function findAll()
+{
+    return $this->createQueryBuilder('g')
+        ->getQuery()
+        ->getResult();
+}
 }

@@ -59,4 +59,14 @@ public function searchByCriteria($marque, $modele, $prixMin)
 
         return $query->getResult();
     }
+
+    public function getPaginatedAnnonces($page, $limit)
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->orderBy('a.datePublication', 'DESC')
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit);
+
+        return $qb->getQuery()->getResult();
+    }
 }

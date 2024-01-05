@@ -11,12 +11,14 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 class Image
 {
     protected $kernel;
-
+    private $requestStack;
+    
     
 
     #[ORM\Id]
@@ -24,8 +26,7 @@ class Image
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $legende = null;
+    
 
     #[ORM\Column(length: 255)]
     private ?string $path = null;
@@ -47,17 +48,7 @@ class Image
         return $this->id;
     }
 
-    public function getLegende(): ?string
-    {
-        return $this->legende;
-    }
-
-    public function setLegende(string $legende): static
-    {
-        $this->legende = $legende;
-
-        return $this;
-    }
+    
 
     public function getPath(): ?string
     {
@@ -124,7 +115,7 @@ class Image
     public function getUploadRootDir()
     {
         // Renvoyer le chemin absolu du dossier d'upload
-        return __DIR__.'./assets/js/images/uploads/images';
+        return __DIR__.'/../../public/media/images';
     }
 
     private function generateUniqueFileName(UploadedFile $file): string
@@ -139,7 +130,7 @@ class Image
     // Obtenez le répertoire de téléchargement
     private function getUploadDir(): string
     {
-        return './assets/js/images/uploads/images';
+        return __DIR__.'/../../public/media/images';
     }
 
     public function createImage($imageFile)

@@ -16,10 +16,19 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Controller\Admin\AdminUrlGenerator;
-
+use App\Entity\Contact;
+use Doctrine\ORM\EntityManagerInterface;
 
 class DashboardController extends AbstractDashboardController
 {
+
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
@@ -54,6 +63,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
         yield MenuItem::linkToCrud('Annonce', 'fas fa-list', Annonce::class);
+        yield MenuItem::linkToCrud('Contact', 'fas fa-list', Contact::class);
         yield MenuItem::linkToCrud('Carburant', 'fas fa-list', Carburant::class);
         yield MenuItem::linkToCrud('Garage', 'fas fa-list', Garage::class);
         yield MenuItem::linkToCrud('Marque', 'fas fa-list', Marque::class);
@@ -67,6 +77,7 @@ class DashboardController extends AbstractDashboardController
         
             yield MenuItem::linkToCrud('Annonce', 'fas fa-list', Annonce::class);
             yield MenuItem::linkToCrud('Garage', 'fas fa-list', Garage::class);
+            yield MenuItem::linkToCrud('Contact', 'fas fa-list', Contact::class);
         
     
         }
@@ -76,7 +87,20 @@ class DashboardController extends AbstractDashboardController
 
     
 
-    
-
-
+    /**
+     * @Route("/admin/contact", name="admin_contact")
+     */
+    public function contactMessages(): Response
+    {
+ // Récupérez les messages de contact depuis la base de données
+ $contactMessages = $this->entityManager->getRepository(Contact::class)->findAll();
+        // Affichez les messages dans le template
+        return $this->render('admin/contact.html.twig', [
+            'contactMessages' => $contactMessages,
+        ]);
+    }
 }
+
+
+
+

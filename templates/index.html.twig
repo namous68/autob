@@ -40,6 +40,8 @@
 			</div>
 		</div>
 
+
+
 		{% if annonces is not empty %}
 			<section class="results-section">
 
@@ -51,7 +53,8 @@
 							<div class="card" style="width: 18rem;">
 								<div>
 									{% for image in annonce.images %}
-                                        <img class="image_annonce" src="{{ asset(image.getImageUrl()) }}" alt="{{ image.path }}">
+									
+                                      <img class="image_annonce" src="{{ asset(image.getImageUrl()) }}" alt="{{ image.path }}">
 									{% endfor %}
 								</div>
 								<div class="card-body">
@@ -64,6 +67,9 @@
 									<li class="list-group-item">Mis En Circulation :{{ annonce.misEnCirculation }}</li>
 									<li class="list-group-item">Kilometrage :{{ annonce.kilometrage }}</li>
 									<li class="list-group-item">Publié Le  :{{  annonce.datePublication|date('Y-m-d H:i') }}</li>
+ {% if annonce.garage is not null %}
+                <li class="list-group-item">Publié Par :{{ annonce.garage.nom }}</li>
+            {% endif %}
 								</ul>
 								<div class="card-body">
 									<a href="{{ path('app_annonces_show', {'id': annonce.id}) }}">show</a>
@@ -73,12 +79,14 @@
 						{% endfor %}
 					</tbody>
 				</table>
+				  
 			</section>
 		{% else %}
 			<section class="no-results-section">
 				<p>Aucun résultat trouvé.</p>
 			</section>
 		{% endif %}
+		
 	</div>
 {% endblock %}
 {% block javascript %}

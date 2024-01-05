@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\ContactType;
 use App\Entity\Marque;
 use App\Entity\Model;
 use App\Entity\Annonce;
@@ -23,6 +24,9 @@ use Symfony\Component\Uid\Uuid;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Controller\Urlizer;
+use App\Entity\Contact;
+use Knp\Component\Pager\PaginatorInterface;
+
 
 class AnnonceController extends AbstractController
 {
@@ -43,13 +47,28 @@ class AnnonceController extends AbstractController
 
 
     #[Route('/', name: 'app_home')]
-    public function index(AnnonceRepository $annonceRepository): Response
+    public function index(AnnonceRepository $annonceRepository, Request $request, EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
     {
         $user = $this->getUser();
         $annonces = $annonceRepository->findAll();
+
+        $repoAnnonce = $entityManager->getRepository(Annonce::class);
+
+        $query = $repoAnnonce->createQueryBuilder('a')
+        ->orderBy('a.datePublication', 'DESC')
+        ->getQuery();
+
+        $pagination = $paginator->paginate(
+            $annonces,
+            $request->query->getInt('page', 1),
+            6 // Nombre d'annonces par page
+        );
+
         return $this->render('index.html.twig',[
         'annonces' => $annonces,
         'user' => $user,
+        'pagination' => $pagination,
+
     ]);
     }
 
@@ -149,12 +168,51 @@ public function new(Request $request, SluggerInterface $slugger): Response
 
 
 
-    return $this->render('search_results.html.twig', [
+    return $this->render('index.html.twig', [
         'annonces' => $annonces,
     ]);
 
     
-}
 
+    
+}
+#[Route('/annonce/{id}/contact', name: 'app_contact', methods: ['GET', 'POST'])]
+public function contact(Request $request, Annonce $annonce, AnnonceRepository $annonceRepository, $id): Response
+{
+    $annonce = $annonceRepository->find($id);
+
+    if (!$annonce) {
+        throw $this->createNotFoundException(
+            'No product found for id '.$id
+        );
+    }
+    $contact = new Contact();
+    $form = $this->createForm(ContactType::class, $contact);
+
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        // Récupérez les données du formulaire
+        $data = $form->getData();
+
+  // Créez une nouvelle instance de l'entité Contact
+  $contact = new Contact();
+  $contact->setName($data['name']);
+  $contact->setEmail($data['email']);
+  $contact->setMessage($data['message']);
+  
+
+  // Persistez l'entité Contact dans la base de données
+  $this->entityManager->persist($contact);
+  $this->entityManager->flush();
+        // Redirigez l'utilisateur ou affichez un message de confirmation
+        return $this->redirectToRoute('app_home');
+    }
+
+    return $this->render('/contact.html.twig', [
+        'form' => $form->createView(),
+        'annonce' => $annonce,
+    ]);
+}
 
 }

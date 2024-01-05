@@ -294,8 +294,41 @@ button {
     object-fit: cover; /* Évite l'étirement de l'image */
   }
   
-  /* slider*/
-  
+  /* Ajoutez ces styles dans votre fichier style.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.garage-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.card {
+    width: 300px; /* Ajustez la largeur des cartes en fonction de vos besoins */
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    margin-bottom: 5px;
+}
+
+
+
   
 
 
