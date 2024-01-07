@@ -214,7 +214,7 @@ class Annonce
 
   // NOTE: This is not a mapped field of entity metadata, just a simple property.
  #[Vich\UploadableField(mapping: 'annonce_images', fileNameProperty: 'imageName')]
-                                      private ?File $imageFile = null;
+                                                                                                              private ?File $imageFile = null;
 
 
 
@@ -235,6 +235,30 @@ class Annonce
 
   #[ORM\Column]
   private ?bool $Climatisation = null;
+
+  #[ORM\Column(length: 255)]
+  private ?string $ControleTechnique = null;
+
+  #[ORM\Column(length: 255)]
+  private ?string $PremiereMain = null;
+
+  #[ORM\Column(length: 255)]
+  private ?string $Couleur = null;
+
+  #[ORM\Column(length: 255)]
+  private ?string $NombreDePortes = null;
+
+  #[ORM\Column(length: 255)]
+  private ?string $VolumeDeCoffre = null;
+
+  #[ORM\Column(length: 255)]
+  private ?string $Rechargeable = null;
+
+  #[ORM\Column(length: 255, nullable: true)]
+  private ?string $PuissanceFiscale = null;
+
+  #[ORM\Column(length: 255)]
+  private ?string $Garantie = null;
     // ...
 
     public function getImageFile(): ?File
@@ -418,6 +442,102 @@ class Annonce
   public function setClimatisation(bool $Climatisation): static
   {
       $this->Climatisation = $Climatisation;
+
+      return $this;
+  }
+
+  public function getControleTechnique(): ?string
+  {
+      return $this->ControleTechnique;
+  }
+
+  public function setControleTechnique(string $ControleTechnique): static
+  {
+      $this->ControleTechnique = $ControleTechnique;
+
+      return $this;
+  }
+
+  public function getPremiereMain(): ?string
+  {
+      return $this->PremiereMain;
+  }
+
+  public function setPremiereMain(string $PremiereMain): static
+  {
+      $this->PremiereMain = $PremiereMain;
+
+      return $this;
+  }
+
+  public function getCouleur(): ?string
+  {
+      return $this->Couleur;
+  }
+
+  public function setCouleur(string $Couleur): static
+  {
+      $this->Couleur = $Couleur;
+
+      return $this;
+  }
+
+  public function getNombreDePortes(): ?string
+  {
+      return $this->NombreDePortes;
+  }
+
+  public function setNombreDePortes(string $NombreDePortes): static
+  {
+      $this->NombreDePortes = $NombreDePortes;
+
+      return $this;
+  }
+
+  public function getVolumeDeCoffre(): ?string
+  {
+      return $this->VolumeDeCoffre;
+  }
+
+  public function setVolumeDeCoffre(string $VolumeDeCoffre): static
+  {
+      $this->VolumeDeCoffre = $VolumeDeCoffre;
+
+      return $this;
+  }
+
+  public function getRechargeable(): ?string
+  {
+      return $this->Rechargeable;
+  }
+
+  public function setRechargeable(string $Rechargeable): static
+  {
+      $this->Rechargeable = $Rechargeable;
+
+      return $this;
+  }
+
+  public function getPuissanceFiscale(): ?string
+  {
+      return $this->PuissanceFiscale;
+  }
+
+  public function setPuissanceFiscale(?string $PuissanceFiscale): static
+  {
+      $this->PuissanceFiscale = $PuissanceFiscale;
+
+      return $this;
+  }
+
+  public function getGarantie(): ?string
+  {
+      return $this->Garantie;
+  }
+
+  public function setGarantie(string $Garantie): static
+  {
+      $this->Garantie = $Garantie;
 
       return $this;
   }

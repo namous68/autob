@@ -15,10 +15,6 @@
 		<!-- Ajouter le lien vers la bibliothèque CookieConsent -->
 		<link rel="stylesheet" href="{{ asset('css/style.css')}}">
 
-		
-
-		
-
 		<!-- Ajouter le script CookieConsent -->
 		<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"></script>
 
@@ -42,15 +38,16 @@
 				</a>
 			</div>
 			<div>
-				<a href="/login">Login</a>
-				<a href="/register">Sing Up</a>
+				
 				{% if  app.user %}
 					<p>Bienvenue,
 						{{ app.user.userName }}!</p>
-					<a href="{{ path('app_logout') }}">Déconnexion</a>
-					{% else %}
+					<a href="{{ path('app_logout') }}" class="btn btn-primary">Déconnexion</a>
+					
 					<!-- Mettez ici d'autres éléments d'en-tête si l'utilisateur n'est pas connecté -->
-
+                     {% else %}
+            <a href="/login" class="btn btn-success">Login</a>
+            <a href="/register" class="btn btn-info">Sing Up</a>
 				{% endif %}
 				<!-- Ajoutez ici votre bouton de connexion ou lien de connexion -->
 
@@ -59,12 +56,16 @@
 		<div class="container"> {% block body %}{% endblock %}
 			</div>
 
- {% block footer %}
+{# {% block footer %}
         <!-- Ajoutez ici votre contenu de pied de page commun à toutes les pages -->
-        <footer>
+        <footer class="site-footer">
             <!-- Contenu du pied de page -->
-        </footer>
-    {% endblock %}
+			<p>Copyright ® Groupe AutoB - Tous droits réservés.</p>
+			<a href="{{ '/policy.html.twig' }}">Politique de confidentialité</a><br>
+        	<a href="{{ '/comment-gerer-mon-compte.html.twig' }}">Help</a>
+
+		</footer>
+    {% endblock %}#}
 			{% block javascript %}
 
 				<!-- Configurer et afficher la bannière -->

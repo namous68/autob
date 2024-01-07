@@ -1,0 +1,47 @@
+{# templates/comment-gerer-mon-compte.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer mon compte{% endblock %}
+
+{% block body %}
+
+	<div>
+		<h2>Gérer mon compte</h2>
+		
+	</div>
+<br>
+	<div class="container text-center">
+		<div class="row d-flex justify-content-around">
+			<div class="col flex-column">
+				<div>
+					<img src="{{ asset('media/icon/kyc.png') }}" alt="Oui" style="width: 40px; max-width: 250px; border-radius: 10px;">
+				</div>
+				<div>
+					<h4>Comment créer un compte ?</h4>
+					<p>Pour cela, vous devez cliquer sur "Sing Up" en haut de notre site, puis remplir le formulaire "Register"</p>
+				</div>
+			</div>
+			<div class="col flex-column">
+				<div>
+					<img src="{{ asset('media/icon/delete.png') }}" alt="Oui" style="width: 40px; max-width: 250px; border-radius: 10px;">
+				</div>
+				<div>
+					<h4>Comment supprimer mon compte ?</h4>
+					<p>Afin de procéder à la suppression de votre compte, nous vous invitons à nous contacté pour la suppretion du compte</p>
+				</div>
+			</div>
+			<div class="col flex-column">
+				<div>
+					<img src="{{ asset('media/icon/gere.png') }}" alt="Oui" style="width: 40px; max-width: 250px; border-radius: 10px;">
+				</div>
+				<div>
+					<h4>Gérer mes données personnelles</h4>
+					<p>Gérer mes données personnelles
+Afin de procéder à la modification de vos données personnelles, nous vous invitons à vous connecter à votre compte</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

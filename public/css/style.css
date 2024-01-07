@@ -2,10 +2,12 @@ body {
     background-color: rgb(255, 254, 254); /* Remplacez cette valeur par la couleur de fond souhaitée */
     color: #000000; /* Couleur du texte dans le body, remplacez par la couleur souhaitée */
     font-family: 'Arial', sans-serif; 
+    margin: 10px;
+    margin-bottom: 60px;
 }
 
 header{
-    height: 70px;
+    height: 80px;
     background-color: #fff;
     display: flex; 
     justify-content: space-between; 
@@ -105,9 +107,9 @@ header{
     padding: 20px;
     background-color: white; /* Ajoutez une couleur de fond si nécessaire */
     display: flex;
-    align-items: center;
     justify-content: center;
     margin-top: 40px;
+    margin-left: 120px;
 }
 
 .image-section img {
@@ -329,20 +331,18 @@ button {
 }
 
 
-.footer {
-    height: 20px;
-    background-color: #333;
-    color: #fff;
+.site-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #d5e6f7; /* Choisissez la couleur de fond que vous souhaitez */
     padding: 10px;
-    text-align: center;
 }
-footer a {
-    color: #fff; /* Couleur du texte des liens */
-    text-decoration: none; /* Supprimer la soulignement par défaut des liens */
-    margin: 0 10px; /* Marge autour des liens pour l'espacement */
+
+.detaileAnnonce{
+    
 }
-footer a:hover {
-    text-decoration: underline; /* Soulignement au survol */
-}  
+
 
 

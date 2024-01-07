@@ -16,32 +16,50 @@
 
 	<div class="container">
 		<section class="search-section">
-			<div class="form">
-				<p>Utilisez le formulaire de recherche pour trouver la voiture de vos rêves.</p>
-				<form
-					action="{{ path('app_annonces_search') }}" method="get">
-					<!-- Vos champs de recherche existants -->
-					<label for="marque">Marque :</label>
-					<input type="text" name="marque" id="marque">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <p>Utilisez le formulaire de recherche pour trouver la voiture de vos rêves.</p>
+                        <form action="{{ path('app_annonces_search') }}" method="get">
+                            <!-- Vos champs de recherche existants avec des classes Bootstrap -->
+                            <div class="form-group">
+                                <label for="marque">Marque :</label>
+                                <input type="text" class="form-control" name="marque" id="marque">
+                            </div>
 
-					<label for="modele">Modèle :</label>
-					<input type="text" name="modele" id="modele">
+                            <div class="form-group">
+                                <label for="modele">Modèle :</label>
+                                <input type="text" class="form-control" name="modele" id="modele">
+                            </div>
 
-					<label for="prix_min">Prix minimum :</label>
-					<input type="number" name="prix_min" id="prix_min">
+                            <div class="form-group">
+                                <label for="prix_min">Prix minimum :</label>
+                                <input type="number" class="form-control" name="prix_min" id="prix_min">
+                            </div>
 
-					<label for="garage">Garage :</label>
-					<input type="text" name="garage" id="garage">
+                            <div class="form-group">
+                                <label for="garage">Garage :</label>
+                                <input type="text" class="form-control" name="garage" id="garage">
+                            </div>
 
-					<button type="submit">Rechercher</button>
-				</form>
-			</div>
-			<div
-				class="image-section">
-				<!-- Ajoutez votre balise d'image ici -->
-				<img src="media/search.png" alt="Description de l'image">
-			</div>
-		</div>
+                            <button type="submit" class="btn btn-primary">Rechercher</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="image-section">
+                    <!-- Ajoutez votre balise d'image ici -->
+                    <img src="{{ asset('media/search.png') }}" alt="Description de l'image" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 
 
@@ -52,6 +70,9 @@
 
 					<tbody>
 						{% for annonce in annonces %}
+ 
+
+
 
 							<div class="card" style="width: 18rem;">
 								<div>

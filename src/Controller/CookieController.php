@@ -14,4 +14,11 @@ class CookieController extends AbstractController
     {
         return $this->render('/policy.html.twig');
     }
+
+
+    #[Route('/comment-gerer-mon-compte.html.twig', name: 'comment-gerer-mon-compte')]
+    public function gereMonCompte(): Response
+    {
+        return $this->render('/comment-gerer-mon-compte.html.twig');
+    }
 }

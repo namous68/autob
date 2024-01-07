@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Image;
 use App\Form\ImageType;
+use App\Repository\ImageRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -64,5 +65,25 @@ class ImageController extends AbstractController
         return $this->render('index.html.twig', [
             'images' => $images,
         ]);
+    }
+
+
+     /**
+     * @Route("/image/delete/{id}", name="image_delete", methods={"POST"})
+     */
+    public function deleteImage(Image $image, ImageRepository $imageRepository): Response
+    {
+        // Récupérer l'annonce associée avant de supprimer l'image
+        $annonce = $image->getAnnonce();
+
+        // Supprimer l'image de la base de données
+        $this->entityManager->remove($image);
+        $this->entityManager->flush();
+
+        // Supprimer le fichier réel associé à l'image si nécessaire
+        // ...
+
+        // Rediriger vers la page de l'annonce après la suppression
+        return $this->redirectToRoute('annonce_show', ['id' => $annonce->getId()]);
     }
 }
