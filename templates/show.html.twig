@@ -15,7 +15,7 @@
     <!-- Partie pour les images -->
     <div class="card-body">
         {% for image in annonce.images|default([]) %}
-            <img class="image_annonce" src="{{ asset( image.getImageUrl()) }}" alt="{{ image.path }}">
+            <img class="image_show" src="{{ asset( image.getImageUrl()) }}" alt="{{ image.path }}">
         {% endfor %}
     </div>
     </div>

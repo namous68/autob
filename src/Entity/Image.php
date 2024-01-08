@@ -147,7 +147,7 @@ class Image
    
 
     // Construire l'URL de l'image
-    $baseUrl = '/public/media/';
+    $baseUrl = '/media/';
     $imageUrl = $baseUrl . $this->path;
     return $imageUrl;
 }
