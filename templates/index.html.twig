@@ -5,119 +5,110 @@
 
 {% block stylesheets %}
 	{{ parent() }}
-<link rel="stylesheet" href="{{ asset('css/style.css')}}">
+	<link rel="stylesheet" href="{{ asset('css/style.css')}}">
 {% endblock %}
 
 
 {% block body %}
 
-
-
-
+	<div class="card">
+		<div class="left"></div>
+		<div class="centre"></div>
+		<div class="right"></div>
+	</div>
 	<div class="container">
 		<section class="search-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <p>Utilisez le formulaire de recherche pour trouver la voiture de vos rêves.</p>
-                        <form action="{{ path('app_annonces_search') }}" method="get">
-                            <!-- Vos champs de recherche existants avec des classes Bootstrap -->
-                            <div class="form-group">
-                                <label for="marque">Marque :</label>
-                                <input type="text" class="form-control" name="marque" id="marque">
-                            </div>
+			<div class="card">
+				<div class="card-body">
+					<p>Utilisez le formulaire de recherche pour trouver la voiture de vos rêves.</p>
+					<form
+						action="{{ path('app_annonces_search') }}" method="get">
+						<!-- Vos champs de recherche existants avec des classes Bootstrap -->
+						<div class="form-group">
+							<label for="marque">Marque :</label>
+							<input type="text" class="form-control" name="marque" id="marque">
+						</div>
 
-                            <div class="form-group">
-                                <label for="modele">Modèle :</label>
-                                <input type="text" class="form-control" name="modele" id="modele">
-                            </div>
+						<div class="form-group">
+							<label for="modele">Modèle :</label>
+							<input type="text" class="form-control" name="modele" id="modele">
+						</div>
 
-                            <div class="form-group">
-                                <label for="prix_min">Prix minimum :</label>
-                                <input type="number" class="form-control" name="prix_min" id="prix_min">
-                            </div>
+						<div class="form-group">
+							<label for="prix_min">Prix minimum :</label>
+							<input type="number" class="form-control" name="prix_min" id="prix_min">
+						</div>
 
-                            <div class="form-group">
-                                <label for="garage">Garage :</label>
-                                <input type="text" class="form-control" name="garage" id="garage">
-                            </div>
+						<div class="form-group">
+							<label for="garage">Garage :</label>
+							<input type="text" class="form-control" name="garage" id="garage">
+						</div>
 
-                            <button type="submit" class="btn btn-primary">Rechercher</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-6">
-                <div class="image-section">
-                    <!-- Ajoutez votre balise d'image ici -->
-                    <img src="{{ asset('media/search.png') }}" alt="Description de l'image" class="img-fluid">
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+						<button type="submit" class="btn btn-primary">Rechercher</button>
+					</form>
+				</div>
+			</div>
+			<div class="transition">
+				<div class="card2">
+					<img src="media/special.png" alt="Description de l'image" class="rotating-horizontal-image">
+				</div>
+						
+			</div>		
+				</section>
 
 
+				{% if annonces is not empty %}
+					<section class="results-section">
+
+						<table class="table">
+
+							<tbody>
+								{% for annonce in annonces %}
 
 
-		{% if annonces is not empty %}
-			<section class="results-section">
+									<div class="card" style="width: 14rem; height: 35rem; overflow: hidden;">
+										<div>
+											{% for image in annonce.images %}
 
-				<table class="table">
+												<img class="image_annonce" src="{{ asset(image.getImageUrl()) }}" alt="{{ image.path }}">
+											{% endfor %}
+										</div>
+										<div class="card-body">
+											<h5 class="card-title"></h5>
+											<p class="card-text" style="font-size: 20px;">
+												<strong>{{ annonce.titre }}.</strong>
+											</p>
+										</div>
+										<div class="annonce-card">
+											Description :{{ annonce.description }}<br>
+											Prix :{{ annonce.prix }}<br>
+											Mis En Circulation :{{ annonce.misEnCirculation }}<br>
+											Kilometrage :{{ annonce.kilometrage }}<br>
+											Publié Le  :{{  annonce.datePublication|date('Y-m-d') }}<br>
+											{% if annonce.garage is not null %}
+												Publié Par :{{ annonce.garage.nom }}
+											{% endif %}
+										</div>
+										<div class="card-body">
+											<a href="{{ path('app_annonces_show', {'id': annonce.id}) }}" class="custom-button" style="position: absolute; bottom: 15px;">Show</a>
+										</div>
+									</div>
 
-					<tbody>
-						{% for annonce in annonces %}
- 
+								{% endfor %}
+							</tbody>
+						</table>
 
+					</section>
+				{% else %}
+					<section class="no-results-section">
+						<p>Aucun résultat trouvé.</p>
+					</section>
+				{% endif %}
 
-
-							<div class="card" style="width: 18rem;">
-								<div>
-									{% for image in annonce.images %}
-									
-                                      <img class="image_annonce" src="{{ asset(image.getImageUrl()) }}" alt="{{ image.path }}">
-									{% endfor %}
-								</div>
-								<div class="card-body">
-									<h5 class="card-title"></h5>
-									<h2 class="card-text">{{ annonce.titre }}.</h2>
-								</div>
-								<ul class="list-group list-group-flush">
-									<li class="list-group-item">Description :{{ annonce.description }}</li>
-									<li class="list-group-item">Prix :{{ annonce.prix }}</li>
-									<li class="list-group-item">Mis En Circulation :{{ annonce.misEnCirculation }}</li>
-									<li class="list-group-item">Kilometrage :{{ annonce.kilometrage }}</li>
-									<li class="list-group-item">Publié Le  :{{  annonce.datePublication|date('Y-m-d H:i') }}</li>
- {% if annonce.garage is not null %}
-                <li class="list-group-item">Publié Par :{{ annonce.garage.nom }}</li>
-            {% endif %}
-								</ul>
-								<div class="card-body">
-									<a href="{{ path('app_annonces_show', {'id': annonce.id}) }}">show</a>
-								</div>
-							</div>
-
-						{% endfor %}
-					</tbody>
-				</table>
-				  
-			</section>
-		{% else %}
-			<section class="no-results-section">
-				<p>Aucun résultat trouvé.</p>
-			</section>
-		{% endif %}
-		
-	</div>
-{% endblock %}
-
-{% block javascript %}
+			</div>
 
 
+		{% endblock %}
 
-{% endblock %}
-
+		{% block javascript %}{% endblock %}
 

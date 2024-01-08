@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(255, 254, 254); /* Remplacez cette valeur par la couleur de fond souhaitée */
+    background-color: white; /* Remplacez cette valeur par la couleur de fond souhaitée */
     color: #000000; /* Couleur du texte dans le body, remplacez par la couleur souhaitée */
     font-family: 'Arial', sans-serif; 
     margin: 10px;
@@ -73,26 +73,31 @@ header{
 }
 
 .container {
-    height: 550px;
-    width: 1400px;
+    height: 800px;
+    width: 1140px;
     margin: 0 auto; /* Centrer le conteneur horizontalement */
     padding: 20px; /* Espace intérieur du conteneur */
+    
 }
 
 .search-section {
     /* Ajoutez vos styles spécifiques pour la section de recherche ici */
-    background-color: rgb(231, 231, 239);
+    background-color: rgb(139, 139, 243);
     padding: 20px;
     border-radius: 5px;
     margin-bottom: 20px;
+    background-image: url('/public/media/dash.jpg');
 }
 
 
 .registration-container {
     display: flex;
-    height: 100vh; /* 100% de la hauteur de la vue */
+    height: 100vh; 
+    margin-left: -100px;
+    
     
 }
+
 
 .left-section {
     flex: 1; /* La section de gauche prend autant d'espace que possible */
@@ -109,7 +114,7 @@ header{
     display: flex;
     justify-content: center;
     margin-top: 40px;
-    margin-left: 120px;
+    margin-left: 80px;
 }
 
 .image-section img {
@@ -189,6 +194,9 @@ button {
     margin: auto;
 }
 
+.form-control{
+    border-radius: 20px;
+}
 .alert {
     margin-top: 10px;
 }
@@ -228,9 +236,10 @@ button {
     margin-top: 50px;
 }
 .image-section{
-   height: 400px;
-   width: 800px;
-   margin-top: -40px;
+   height: 600px;
+   width: 1000px;
+   margin-top: 80px;
+   margin-left:0px;
 }
 
 
@@ -262,6 +271,12 @@ button {
     min-height: 150px;
   }
   
+  .card-info{
+    padding: 20px;
+    min-height: 150px;
+    background-color: rgba(162, 162, 238, 0.214);
+    
+  }
   .card-title {
     font-size: 1.25rem;
     font-weight: bold;
@@ -314,7 +329,9 @@ button {
     width: 300px; /* Ajustez la largeur des cartes en fonction de vos besoins */
     margin: 10px;
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
-    border: black;
+    border: #101010;
+    box-shadow: 5px 5px 20px rgba(14, 13, 13, 0.1);
+
 }
 
 .card-body {
@@ -331,18 +348,51 @@ button {
 }
 
 
-.site-footer {
+.fixed-bottom {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     background-color: #d5e6f7; /* Choisissez la couleur de fond que vous souhaitez */
     padding: 10px;
-}
-
-.detaileAnnonce{
     
 }
 
+/* style.css */
+
+.custom-button {
+    background-color: #4CAF50; /* couleur de fond */
+    color: white; /* couleur du texte */
+    padding: 10px 20px; /* espacement du bouton */
+    text-align: center; /* alignement du texte */
+    text-decoration: none; /* suppression du soulignement du texte */
+    display: inline-block;
+    font-size: 16px; /* taille du texte */
+    border-radius: 10px; /* bordure arrondie */
+}
+
+.annonce-card{
+    margin-left: 15px;
+    font-family: 'Times New Roman', Times, serif;
+}
 
 
+.rotating-horizontal-image{
+   height: 400px;
+   width: 800px;
+   
+}
+
+  
+  .car img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  
+
+  
+  
+  

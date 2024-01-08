@@ -4,42 +4,50 @@
 
 {% block body %}
     <div class="registration-container">
-        <div class="left-section">
-            <h1>Register</h1>
-            {{ form_errors(registrationForm) }}
-            {{ form_start(registrationForm) }}
-            
-            <div class="form-group">
-                {{ form_label(registrationForm.userName) }}
-                {{ form_widget(registrationForm.userName, {'attr': {'class': 'form-control'}}) }}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="left-section">
+                        <h1>Register</h1>
+                        {{ form_errors(registrationForm) }}
+                        {{ form_start(registrationForm) }}
+                        
+                        <div class="form-group">
+                            {{ form_label(registrationForm.userName) }}
+                            {{ form_widget(registrationForm.userName, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form_label(registrationForm.email) }}
+                            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form_label(registrationForm.plainPassword, 'Password') }}
+                            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form_label(registrationForm.role) }}
+                            {{ form_widget(registrationForm.role, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        
+                        <div class="form-group form-check">
+                            {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                            {{ form_label(registrationForm.agreeTerms, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Register</button>
+                        {{ form_end(registrationForm) }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="image-section">
+                        <!-- Ajoutez votre balise d'image ici -->
+                        <img src="media/special.png" alt="Description de l'image" class="img-fluid">
+                    </div>
+                </div>
             </div>
-            
-            <div class="form-group">
-                {{ form_label(registrationForm.email) }}
-                {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            
-            <div class="form-group">
-                {{ form_label(registrationForm.plainPassword, 'Password') }}
-                {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            
-            <div class="form-group">
-                {{ form_label(registrationForm.role) }}
-                {{ form_widget(registrationForm.role, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            
-            <div class="form-group form-check">
-                {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
-                {{ form_label(registrationForm.agreeTerms, null, {'label_attr': {'class': 'form-check-label'}}) }}
-            </div>
-            
-            <button type="submit" class="btn btn-primary">Register</button>
-            {{ form_end(registrationForm) }}
-        </div>
-        <div class="image-section">
-            <!-- Ajoutez votre balise d'image ici -->
-            <img src="media/bmw-m-series-x6.jpg" alt="Description de l'image">
         </div>
     </div>
 {% endblock %}
