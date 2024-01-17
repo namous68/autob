@@ -17,10 +17,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
+use ApiPlatform\Metadata\ApiResource;
 
 
 #[ORM\Entity(repositoryClass: AnnonceRepository::class)]
 #[Vich\Uploadable]
+#[ApiResource]
 class Annonce
 {
     #[ORM\ManyToOne(inversedBy: 'annonce')]

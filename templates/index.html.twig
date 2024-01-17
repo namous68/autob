@@ -5,30 +5,29 @@
 
 {% block stylesheets %}
 	{{ parent() }}
-	<link rel="stylesheet" href="{{ asset('css/style.css')}}">
-{% endblock %}
+	<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
+{% endblock %}
 
 {% block body %}
 
-	<div class="card">
-		<div class="left"></div>
-		<div class="centre"></div>
-		<div class="right"></div>
-	</div>
-	<div class="container">
-		<section class="search-section">
-			<div class="card">
-				<div class="card-body">
-					<p>Utilisez le formulaire de recherche pour trouver la voiture de vos rêves.</p>
-					<form
-						action="{{ path('app_annonces_search') }}" method="get">
-						<!-- Vos champs de recherche existants avec des classes Bootstrap -->
+<!--<div class="video-container">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/X1ydNGz4rPM?si=NDDT9W27yJYU3cMP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+</div> !-->
+	<div class="container-fluid">
+		
+
+		
+		<div class="row mt-md-5 mt-3">
+			<div class="col-md-6 col-sm-12 order-2 order-md-1">
+				<div class="card-search mt-5">
+					<p>Trouver la voiture de vos rêves.</p>
+					<form class="mt-3" action="{{ path('app_annonces_search') }}" method="get">
 						<div class="form-group">
 							<label for="marque">Marque :</label>
 							<input type="text" class="form-control" name="marque" id="marque">
 						</div>
-
 						<div class="form-group">
 							<label for="modele">Modèle :</label>
 							<input type="text" class="form-control" name="modele" id="modele">
@@ -44,71 +43,110 @@
 							<input type="text" class="form-control" name="garage" id="garage">
 						</div>
 
+
 						<button type="submit" class="btn btn-primary">Rechercher</button>
 					</form>
 				</div>
 			</div>
-			<div class="transition">
-				<div class="card2">
-					<img src="media/special.png" alt="Description de l'image" class="rotating-horizontal-image">
+			<div class="col-md-6 col-sm-1 order-1 order-md-2">
+				<div class="transition mt-5">
+					<div class="card2">
+						<img src="media/special.png" alt="Description de l'image" class="img-fluid">
+					</div>
 				</div>
-						
-			</div>		
-				</section>
-
-
-				{% if annonces is not empty %}
-					<section class="results-section">
-
-						<table class="table">
-
-							<tbody>
-								{% for annonce in annonces %}
-
-
-									<div class="card" style="width: 14rem; height: 35rem; overflow: hidden;">
-										<div>
-											{% for image in annonce.images %}
-
-												<img class="image_annonce" src="{{ asset(image.getImageUrl()) }}" alt="{{ image.path }}">
-											{% endfor %}
-										</div>
-										<div class="card-body">
-											<h5 class="card-title"></h5>
-											<p class="card-text" style="font-size: 20px;">
-												<strong>{{ annonce.titre }}.</strong>
-											</p>
-										</div>
-										<div class="annonce-card">
-											Description :{{ annonce.description }}<br>
-											Prix :{{ annonce.prix }}<br>
-											Mis En Circulation :{{ annonce.misEnCirculation }}<br>
-											Kilometrage :{{ annonce.kilometrage }}<br>
-											Publié Le  :{{  annonce.datePublication|date('Y-m-d') }}<br>
-											{% if annonce.garage is not null %}
-												Publié Par :{{ annonce.garage.nom }}
-											{% endif %}
-										</div>
-										<div class="card-body">
-											<a href="{{ path('app_annonces_show', {'id': annonce.id}) }}" class="custom-button" style="position: absolute; bottom: 15px;">Show</a>
-										</div>
-									</div>
-
-								{% endfor %}
-							</tbody>
-						</table>
-
-					</section>
-				{% else %}
-					<section class="no-results-section">
-						<p>Aucun résultat trouvé.</p>
-					</section>
-				{% endif %}
-
 			</div>
+		</div>
 
+		
+		<br>
+		<br>
+		<br>
+        <br>
+		<br>
+        <br>
+		<br>
+		<br>
+		<br>
+		
+		{% if annonces is not empty %}
+			<div class="row mt-5">
+				{% for annonce in annonces %}
+					<div class="col-md-4 mb-4">
+						<div class="card" style="width: 100%; height: 35rem; overflow: hidden">
+							<div class="slider">
+								{% for image in annonce.images %}
+									<img class="image_annonce" src="{{ asset(image.getImageUrl()) }}" alt="{{ image.path }}">
+								{% endfor %}
+							</div>
+							<div class="card-body">
+								<h5 class="card-title"></h5>
+								<p class="card-text" style="font-size: 20px;">
+									<strong>{{ annonce.titre }}.</strong>
+								</p>
+							</div>
+							<div class="annonce-card">
+								Description :{{ annonce.description }}<br>
+								Prix :{{ annonce.prix }}<br>
+								Mis En Circulation :{{ annonce.misEnCirculation }}<br>
+								Kilometrage :{{ annonce.kilometrage }}<br>
+								Publié Le :{{ annonce.datePublication|date('Y-m-d') }}<br>
+								{% if annonce.garage is not null %}
+									Publié Par :{{ annonce.garage.nom }}
+								{% endif %}
+							</div>
+							<div class="card-body">
+								<a href="{{ path('app_annonces_show', {'id': annonce.id}) }}" class="btn btn-primary">Show</a>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% else %}
+			<div class="row mt-5">
+				<div class="col-md-12">
+					<p class="text-center">Aucun résultat trouvé.</p>
+				</div>
+			</div>
+		{% endif %}
 
-		{% endblock %}
+	</div>
 
-		{% block javascript %}{% endblock %}
+	{% block javascript %}
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<!-- Ajoutez le lien vers le fichier JS de slick-carousel si nécessaire -->
+		<!-- <script src="lien_vers_slick.js"></script> -->
+		<script>
+			$(document).ready(function () {
+$('.slider').slick({
+infinite: true, slidesToShow: 1, slidesToScroll: 1
+// Ajoutez d'autres options si nécessaire
+});
+});
+		</script>
+
+		<script>
+    // Add this script to start the video automatically
+    var player;
+
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('youtubeVideo', {
+            events: {
+                'onReady': onPlayerReady
+            }
+        });
+    }
+
+    function onPlayerReady(event) {
+        event.target.playVideo();
+        event.target.setLoop(true);
+    }
+</script>
+
+<!-- Include the YouTube API script -->
+<script src="https://www.youtube.com/iframe_api"></script>
+	{% endblock %}
+
+{% endblock %}
 

@@ -5,91 +5,150 @@
 {% block title %}Détail de l'Annonce
 {% endblock %}
 
+{% block javascript %}
+	{{ parent() }}
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+	<script>
+		var swiper = new Swiper('.swiper-container', {
+slidesPerView: 1,
+spaceBetween: 10,
+navigation: {
+nextEl: '.swiper-button-next',
+prevEl: '.swiper-button-prev'
+},
+pagination: {
+el: '.swiper-pagination',
+clickable: true
+}
+});
+	</script>
+{% endblock %}
+
 {% block body %}
 
 
+	<section class="showsection d-flex">
 
-<section class="showsection d-flex">
+		<div
+			id="swiper-container" class="card mb-4" style="width: 60rem; height: 35rem;">
+			<!-- Partie pour les images -->
+			<div class="swiper-wrapper ">
+				<div class="swiper-slide">
+					{% for image in annonce.images|default([]) %}
+						<img class="image_show" src="{{ asset( image.getImageUrl()) }}" alt="{{ image.path }}">
+					{% endfor %}
+				</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination"></div>
 
-<div class="card" style="width: 60rem; height: 30rem;">
-    <!-- Partie pour les images -->
-    <div class="card-body">
-        {% for image in annonce.images|default([]) %}
-            <img class="image_show" src="{{ asset( image.getImageUrl()) }}" alt="{{ image.path }}">
-        {% endfor %}
-    </div>
-    </div>
+				<div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div>
+			</div>
+		</div>
 
-    <!-- Partie pour les détails -->
-	<div class="card" style="width: 18rem; height: 30rem;">
+		<!-- Partie pour les détails -->
+		<div class="card mb-4" style="width: 18rem; height: 30rem;">
 
-<div class="card-body">
-        <h3 class="card-text">{{ annonce.titre }}.</h3>
-         
-                     {{ annonce.description }} <br>
-             {{ annonce.prix }}.$ | {{ annonce.misEnCirculation }} | {{ annonce.Couleur}}
-            
-        
-        <div class="card-body">
-            <a href="{{ path('app_contact', {'id': annonce.id}) }}" class="btn btn-primary">Contactez-nous</a>
-            
-        </div>
-    </div>
+			<div class="card-body">
+				<h3 class="card-text">{{ annonce.titre }}.</h3>
+
+				{{ annonce.description }}
+				<br>
+				{{ annonce.prix }}.$ |
+				{{ annonce.misEnCirculation }}
+				|
+				{{ annonce.Couleur}}
 
 
-</section>
-<p style="margin-left:-800px;"><strong>Point Fort</strong></p>
-<section class="options" style="margin-top: 20px; margin-left: -350px; display: flex; justify-content: space-between;">
+				<div class="card-body">
+					<a href="{{ path('app_contact', {'id': annonce.id}) }}" class="btn btn-primary">Contactez-nous</a>
 
-<p style="margin-right: 50px;"> <img src="{{ asset('media/icon/camera.png') }}" alt="Oui" style="width: 40px; max-width: 250px; border-radius: 10px";>
-    cameraDeRecul : {% if annonce.cameraDeRecul %}Oui{% else %}Non{% endif %}</p>
-    <p style="margin-right: 50px;"> <img src="{{ asset('media/icon/gps.png') }}" alt="Oui" style="width: 40px; max-width: 250px; border-radius: 10px";>
-	gps : {% if annonce.gps %}Oui{% else %}Non{% endif %}</p>
-	<p style="margin-right: 50px;"><img src="{{ asset('media/icon/bluetooth.png') }}" alt="Oui" style="width: 40px; max-width: 250px; border-radius: 10px";>
-	bluetooth : {% if annonce.bluetooth %}Oui{% else %}Non{% endif %}</p>
-    <p style="margin-right: 50px;"><img src="{{ asset('media/icon/climatisation.png') }}" alt="Oui" style="width: 40px; max-width: 250px; border-radius: 10px";>
-	climatisation : {% if annonce.climatisation %}Oui{% else %}Non{% endif %}</p>
-</section>
-    
-	<section class="detailegarage">
- <div class="card" style="width: 60rem; height: 15rem; margin-left: -300px;">
-  <div class="card-header">
-    Garage :<p><strong>{{ garage.nom }}</strong></p>
-  </div>
-  <div class="card-body">
-    <p class="card-text"><strong>Adresse : </strong><br>
-	{{ garage.adress1}}
-	{{ garage.adress2}}<br>
-	{{ garage.ville}}<br>
-	{{ garage.codePostale}}
-	<br>
-	Contact Telephone :<strong>{{ garage.numerotel}}</strong>
-	</p>
-    
-  </div>
-</div>
-	</section>
+				</div>
+			</div>
 
-    <section class="detaileAnnonce">
- <div class="card" style="width: 60rem; height: 40rem; margin-left: -300px;">
-  <div class="card-header">
-    Informations générales :
-  </div>
-  <div class="card-info">
-<p class="card-text">Pour l'annonce :<strong>{{ annonce.titre }}</strong></p>
-	 <img src="{{ asset('media/icon/plaque.png') }}" alt="Oui" style="width: 40px; max-width: 250px; border-radius: 10px";> ControleTechnique  :<strong>{{ annonce.ControleTechnique}}</strong><br><br>
-	   <img src="{{ asset('media/icon/1.png') }}" alt="Oui" style="width: 30px; max-width: 250px; border-radius: 10px";> PremiereMain  :<strong>{{ annonce.PremiereMain}}</strong><br><br>
-	   <img src="{{ asset('media/icon/couleur.png') }}" alt="Oui" style="width: 30px; max-width: 250px; border-radius: 10px";> Couleur   :<strong>{{ annonce.Couleur}}</strong><br><br>
-	<img src="{{ asset('media/icon/porte.png') }}" alt="Oui" style="width: 30px; max-width: 250px; border-radius: 10px";>NombreDePortes   :<strong>{{ annonce.NombreDePortes}}</strong><br><br>
-    <img src="{{ asset('media/icon/coffre.png') }}" alt="Oui" style="width: 30px; max-width: 250px; border-radius: 10px";>VolumeDeCoffre  :<strong>{{ annonce.VolumeDeCoffre}}</strong><br><br>
-    <img src="{{ asset('media/icon/borne.png') }}" alt="Oui" style="width: 30px; max-width: 250px; border-radius: 10px";>Rechargeable  :<strong>{{ annonce.Rechargeable}}</strong><br><br>
-    <img src="{{ asset('media/icon/compteur.png') }}" alt="Oui" style="width: 30px; max-width: 250px; border-radius: 10px";>PuissanceFiscale  :<strong>{{ annonce.PuissanceFiscale}}</strong><br><br>
-   <img src="{{ asset('media/icon/garantie.png') }}" alt="Oui" style="width: 30px; max-width: 250px; border-radius: 10px";> Garantie   :<strong>{{ annonce.Garantie}}</strong><br><br>
-	
-	
-   
-  </div>
-</div>
-	</section>
-{% endblock %}
+
+		</section>
+		<p class="mb-0" style="margin-left:-800px;">
+			<strong>Point Fort</strong>
+		</p>
+		<section class="options" style="margin-top: 20px; margin-left: -350px; display: flex; justify-content: space-between;">
+
+			<p class="mb-0" style="margin-right: 50px;">
+				<img src="{{ asset('media/icon/camera.png') }}" alt="Oui" style="width: 40px; max-width: 250px; border-radius: 10px" ;>
+				cameraDeRecul :
+				{% if annonce.cameraDeRecul %}Oui{% else %}Non
+				{% endif %}
+			</p>
+			<p class="mb-0" style="margin-right: 50px;">
+				<img src="{{ asset('media/icon/gps.png') }}" alt="Oui" style="width: 40px; max-width: 250px; border-radius: 10px" ;>
+				gps :
+				{% if annonce.gps %}Oui{% else %}Non
+				{% endif %}
+			</p>
+			<p class="mb-0" style="margin-right: 50px;"><img src="{{ asset('media/icon/bluetooth.png') }}" alt="Oui" style="width: 40px; max-width: 250px; border-radius: 10px" ;>
+				bluetooth :
+				{% if annonce.bluetooth %}Oui{% else %}Non
+				{% endif %}
+			</p>
+			<p class="mb-0" style="margin-right: 50px;"><img src="{{ asset('media/icon/climatisation.png') }}" alt="Oui" style="width: 40px; max-width: 250px; border-radius: 10px" ;>
+				climatisation :
+				{% if annonce.climatisation %}Oui{% else %}Non
+				{% endif %}
+			</p>
+		</section>
+		<section class="d-flex">
+			<section class="detailegarage">
+				<div class="detaileAnnonce card mb-4" style="width: 60rem; height: 15rem; margin-left: -300px;">
+					<div class="card-header">
+						Garage :<p>
+							<strong>{{ garage.nom }}</strong>
+						</p>
+					</div>
+					<div class="card-body">
+						<p class="card-text">
+							<strong>Adresse :
+							</strong><br>
+							{{ garage.adress1}}
+							{{ garage.adress2}}<br>
+							{{ garage.ville}}<br>
+							{{ garage.codePostale}}
+							<br>
+							Contact Telephone :<strong>{{ garage.numerotel}}</strong>
+						</p>
+
+					</div>
+				</div>
+			</section>
+
+
+		</section>
+
+		<section class="detaileAnnonce">
+			<div class="detaileAnnonce card mb-4" style="width: 60rem; height: 40rem; margin-left: -300px;">
+				<div class="card-header">
+					Informations générales :
+				</div>
+				<div class="card-info">
+					<p class="card-text">Pour l'annonce :<strong>{{ annonce.titre }}</strong>
+					</p>
+					<img src="{{ asset('media/icon/plaque.png') }}" alt="Oui" style="width: 40px; max-width: 250px; border-radius: 10px" ;>
+					ControleTechnique  :<strong>{{ annonce.ControleTechnique}}</strong><br><br>
+					<img src="{{ asset('media/icon/1.png') }}" alt="Oui" style="width: 30px; max-width: 250px; border-radius: 10px" ;>
+					PremiereMain  :<strong>{{ annonce.PremiereMain}}</strong><br><br>
+					<img src="{{ asset('media/icon/couleur.png') }}" alt="Oui" style="width: 30px; max-width: 250px; border-radius: 10px" ;>
+					Couleur   :<strong>{{ annonce.Couleur}}</strong><br><br>
+					<img src="{{ asset('media/icon/porte.png') }}" alt="Oui" style="width: 30px; max-width: 250px; border-radius: 10px" ;>NombreDePortes   :<strong>{{ annonce.NombreDePortes}}</strong><br><br>
+					<img src="{{ asset('media/icon/coffre.png') }}" alt="Oui" style="width: 30px; max-width: 250px; border-radius: 10px" ;>VolumeDeCoffre  :<strong>{{ annonce.VolumeDeCoffre}}</strong><br><br>
+					<img src="{{ asset('media/icon/borne.png') }}" alt="Oui" style="width: 30px; max-width: 250px; border-radius: 10px" ;>Rechargeable  :<strong>{{ annonce.Rechargeable}}</strong><br><br>
+					<img src="{{ asset('media/icon/compteur.png') }}" alt="Oui" style="width: 30px; max-width: 250px; border-radius: 10px" ;>PuissanceFiscale  :<strong>{{ annonce.PuissanceFiscale}}</strong><br><br>
+					<img src="{{ asset('media/icon/garantie.png') }}" alt="Oui" style="width: 30px; max-width: 250px; border-radius: 10px" ;>
+					Garantie   :<strong>{{ annonce.Garantie}}</strong><br><br>
+
+
+				</div>
+			</div>
+		</section>
+	{% endblock %}
 

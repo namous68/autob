@@ -1,25 +1,50 @@
 body {
-    background-color: white; /* Remplacez cette valeur par la couleur de fond souhaitée */
     color: #000000; /* Couleur du texte dans le body, remplacez par la couleur souhaitée */
     font-family: 'Arial', sans-serif; 
     margin: 10px;
     margin-bottom: 60px;
+    height: 100%;
+    background-image: url('https://youtu.be/X1ydNGz4rPM');
+}
+.video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.container-fluid{
+    background-color: #efdede;
+    
+}
+/* Additional styling for your content */
+.content {
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+    color: #fff;
 }
 
 header{
-    height: 80px;
-    background-color: #fff;
+    height: 100px;
     display: flex; 
     justify-content: space-between; 
     align-items: center;
     border-bottom: #000000;
-    background-color: rgba(137, 131, 244, 0.424);
+    background-color: rgb(47, 36, 244);
 }
 
 .logo-container {
     display: flex;
     justify-content: flex-start;
-    margin-top: 100px;
+    margin-top: 30px;
 }
 
 .logo-container a {
@@ -29,6 +54,10 @@ header{
     margin-right: 10px; /* Ajustez la marge selon vos besoins */
 }
 
+hr {
+    border: 2px solid #0f0e0e; /* Couleur et épaisseur de la ligne */
+    margin: 20px 0; /* Marge autour de la ligne */
+}
 .table {
     width: 100%;
     border-collapse: collapse;
@@ -73,8 +102,8 @@ header{
 }
 
 .container {
-    height: 800px;
-    width: 1140px;
+    height: auto;
+    width: auto;
     margin: 0 auto; /* Centrer le conteneur horizontalement */
     padding: 20px; /* Espace intérieur du conteneur */
     
@@ -82,11 +111,12 @@ header{
 
 .search-section {
     /* Ajoutez vos styles spécifiques pour la section de recherche ici */
-    background-color: rgb(139, 139, 243);
-    padding: 20px;
+    background-color: rgb(121, 121, 214);
+    padding: 0px;
     border-radius: 5px;
     margin-bottom: 20px;
-    background-image: url('/public/media/dash.jpg');
+    margin: 30px;
+    
 }
 
 
@@ -94,6 +124,7 @@ header{
     display: flex;
     height: 100vh; 
     margin-left: -100px;
+    width: 1200px;
     
     
 }
@@ -121,7 +152,16 @@ header{
     max-width: 100%; /* Assurez-vous que l'image ne dépasse pas la largeur de la section */
     max-height: 400px;
 }
-
+.img-fluid{
+    height: 1000px;
+    width: 1200px;
+    margin-left: 0;
+}
+.img-logo{
+    height: 55px;
+    width: 55px;
+    margin-left: 0;
+}
 
 .registration-container {
     display: flex;
@@ -165,18 +205,19 @@ header{
 
 /* Style spécifique au formulaire (ajustez selon vos besoins) */
 form {
-    margin-top: 20px;
+    margin-top: 5px;
+    
 }
 
 label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
 }
 
 input {
     width: 60%;
-    padding: 8px;
-    margin-bottom: 10px;
+    padding: 4px;
+    margin-bottom: 5px;
 }
 
 button {
@@ -253,9 +294,9 @@ button {
 /* Card */
 .card {
     width: 18rem;
-    margin: 20px; /* Espace autour de la carte */
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Ombre légère */
-    border-radius: 10px; /* Coins arrondis */
+    margin: 15px; /* Espace autour de la carte */
+    box-shadow: 0 10px 8px rgba(0, 0, 0, 0.3); /* Ombre légère */
+    border-radius: 20px; /* Coins arrondis */
     border-color: #000000;
   }
   
@@ -266,11 +307,34 @@ button {
     border-top-right-radius: 10px;
   }
   
-  .card-body {
+  #swiper-container {
+    width: 100%;
+    height: 100%;
+}
+  .swiper-slide {
     padding: 20px;
     min-height: 150px;
+    overflow: hidden;
+
+  }
+
+  .swiper-wrapper .swiper-slide {
+    display: flex;
+    animation: slider-1 10s infinite ease-out;
+    overflow: hidden;
+    object-fit: cover; /* Évite l'étirement de l'image */
+
+
   }
   
+  
+
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    
+}
   .card-info{
     padding: 20px;
     min-height: 150px;
@@ -303,7 +367,10 @@ button {
     display: flex;
     flex-wrap: wrap; /* Permet aux éléments de passer à la ligne si l'espace est insuffisant */
     justify-content: space-between; /* Distribue les éléments de manière égale sur la ligne */
-  }
+    margin-top: 20px;
+    background-color: #d5e6f7;
+    width: 854px;
+}
 
   .image_annonce {
     width: 100%;
@@ -339,9 +406,18 @@ button {
     box-shadow: 5px 5px 20px rgba(14, 13, 13, 0.1);
 
 }
+.card-video{
+    height: 400px;
+    width: 1000px;
+}
 
 .card-body {
     padding: 15px;
+    height: 130px;
+}
+.card-search{
+    padding: 15px;
+    height: 180px;
 }
 
 .card-title {
@@ -383,9 +459,9 @@ button {
 }
 
 
-.rotating-horizontal-image{
+.horizontal-image{
    height: 400px;
-   width: 800px;
+   width: 600px;
    
 }
 
@@ -398,7 +474,11 @@ button {
   }
   
   
+.ads{
+    height: 480px;
+    width: 288px;
+}
+  
+  
+  
 
-  
-  
-  
