@@ -71,11 +71,13 @@
 		{% if annonces is not empty %}
 			<div class="row mt-5">
 				{% for annonce in annonces %}
-					<div class="col-md-4 mb-4">
+					<div class="swiper-container col-md-4 mb-4">
 						<div class="card" style="width: 100%; height: 35rem; overflow: hidden">
-							<div class="slider">
+							<div class="swiper-wrapper">
 								{% for image in annonce.images %}
+								<div class="swiper-slide">
 									<img class="image_annonce" src="{{ asset(image.getImageUrl()) }}" alt="{{ image.path }}">
+								</div>
 								{% endfor %}
 							</div>
 							<div class="card-body">

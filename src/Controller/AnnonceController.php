@@ -229,7 +229,14 @@ public function contact(Request $request, Annonce $annonce, AnnonceRepository $a
     ]);
 }
 
+public function sliderAction(EntityManagerInterface $entityManager)
+{
+    $images = $entityManager->getRepository(Image::class)->findAll(); // En supposant que vous ayez une entité "Image" avec une propriété comme "imageUrl"
 
+    return $this->render('votre_template.html.twig', [
+        'images' => $images,
+    ]);
+}
 
 }
 

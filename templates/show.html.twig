@@ -6,24 +6,25 @@
 {% endblock %}
 
 {% block javascript %}
-	{{ parent() }}
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-	<script>
-		var swiper = new Swiper('.swiper-container', {
-slidesPerView: 1,
-spaceBetween: 10,
-navigation: {
-nextEl: '.swiper-button-next',
-prevEl: '.swiper-button-prev'
-},
-pagination: {
-el: '.swiper-pagination',
-clickable: true
-}
-});
-	</script>
+	 {{ parent() }}
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var swiper = new Swiper('.swiper-container', {
+                slidesPerView: 1,
+                spaceBetween: 10,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev'
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true
+                }
+            });
+        });
+    </script>
 {% endblock %}
 
 {% block body %}
@@ -32,14 +33,16 @@ clickable: true
 	<section class="showsection d-flex">
 
 		<div
-			id="swiper-container" class="card mb-4" style="width: 60rem; height: 35rem;">
+			class="swiper-container"  style="width: 60rem; height: 35rem;">
 			<!-- Partie pour les images -->
 			<div class="swiper-wrapper ">
-				<div class="swiper-slide">
+				
 					{% for image in annonce.images|default([]) %}
+           <div class="swiper-slide">
 						<img class="image_show" src="{{ asset( image.getImageUrl()) }}" alt="{{ image.path }}">
-					{% endfor %}
+					
 				</div>
+        {% endfor %}
 				<!-- Add Pagination -->
 				<div class="swiper-pagination"></div>
 
