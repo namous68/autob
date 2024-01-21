@@ -82,7 +82,7 @@
 		<div class="container"> {% block body %}{% endblock %}
 			</div>
 
-			{#{% block footer %}
+			{% block footer %}
 			        <!-- Ajoutez ici votre contenu de pied de page commun à toutes les pages -->
 			        <footer class="fixed-bottom">
 			            <!-- Contenu du pied de page -->
@@ -92,7 +92,7 @@
 						<a href="{{ 'http://127.0.0.1:8000/api' }}">API</a>
 			
 					</footer>
-			    {% endblock %}#}
+			    {% endblock %}
 			{% block javascript %}
 
 				<!-- Configurer et afficher la bannière -->
