@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AUtoB
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+{% endblock %}
+
+{% block body %}
+  <h1>Bienvenue sur AutoB, {{ user.username }}!</h1>
+    <p>Merci de votre inscription, nous sommes Heureux de vous avoir Parmis nous.</p>
+    <p>Libre d'exploré notre site d'annonce et fait nous savoir si vous voulez etre Un professionnel pour creer votre garage.</p>
+    <p>Si vous voulez un compte Professionnel, fait retour a ce mail avec les info suivante pour la creation d'un compte professionnel</p>
+    <p>Non</p>
+    <p>Prenom</p>
+    <p>Numero Tel</p> 
+    <p>Cordialement,</p>
+    <p>AutoB</p>
+{% endblock %}

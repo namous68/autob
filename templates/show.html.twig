@@ -6,56 +6,56 @@
 {% endblock %}
 
 {% block javascript %}
-	 {{ parent() }}
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var swiper = new Swiper('.swiper-container', {
-                slidesPerView: 1,
-                spaceBetween: 10,
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev'
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true
-                }
-            });
-        });
-    </script>
+	{{ parent() }}
+	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+var swiper = new Swiper('.swiper-container', {
+slidesPerView: 1,
+spaceBetween: 10,
+navigation: {
+nextEl: '.swiper-button-next',
+prevEl: '.swiper-button-prev'
+},
+pagination: {
+el: '.swiper-pagination',
+clickable: true
+}
+});
+});
+	</script>
 {% endblock %}
 
 {% block body %}
 
-
-	<section class="showsection d-flex">
+<div class="container-fluid">
+	<section class="showsection d-flex  ">
 
 		<div
-			class="swiper-container"  style="width: 60rem; height: 35rem;">
+			class="swiper-container " style="width: 60rem; height: 35rem;">
 			<!-- Partie pour les images -->
 			<div class="swiper-wrapper ">
-				
-					{% for image in annonce.images|default([]) %}
-           <div class="swiper-slide">
+
+				{% for image in annonce.images|default([]) %}
+					<div class="swiper-slide">
 						<img class="image_show" src="{{ asset( image.getImageUrl()) }}" alt="{{ image.path }}">
-					
-				  </div>
-          
-        {% endfor %}
-      
-				<!-- Add Pagination -->
-				<div class="swiper-pagination"></div>
-        <div class="swiper-button-next"></div>
+                    
+					<div class="swiper-button-next"></div>
 				<div class="swiper-button-prev"></div>
-      </div>
+				
+					</div>
+					<!--<div class="swiper-pagination"></div>!-->
+				{% endfor %}
+			</div>	
+				<!-- Add Pagination -->
+				
 				
 			
 		</div>
 
 		<!-- Partie pour les détails -->
-		<div class="card mb-4" style="width: 18rem; height: 30rem;">
+		<div class="card  mb-4" style="width: 18rem; height: auto;">
 
 			<div class="card-body">
 				<h3 class="card-text">{{ annonce.titre }}.</h3>
@@ -79,7 +79,7 @@
 		<p class="mb-0" style="margin-left:-800px;">
 			<strong>Point Fort</strong>
 		</p>
-		<section class="options" style="margin-top: 20px; margin-left: -350px; display: flex; justify-content: space-between;">
+		<section class="options" style="margin-top: 20px; display: flex;">
 
 			<p class="mb-0" style="margin-right: 50px;">
 				<img src="{{ asset('media/icon/camera.png') }}" alt="Oui" style="width: 40px; max-width: 250px; border-radius: 10px" ;>
@@ -106,7 +106,7 @@
 		</section>
 		<section class="d-flex">
 			<section class="detailegarage">
-				<div class="detaileAnnonce card mb-4" style="width: 60rem; height: 15rem; margin-left: -300px;">
+				<div class="detaileAnnonce card mb-4" style="width: 60rem; height: 15rem;">
 					<div class="card-header">
 						Garage :<p>
 							<strong>{{ garage.nom }}</strong>
@@ -132,7 +132,7 @@
 		</section>
 
 		<section class="detaileAnnonce">
-			<div class="detaileAnnonce card mb-4" style="width: 60rem; height: 40rem; margin-left: -300px;">
+			<div class="detaileAnnonce card mb-4" style="width: 60rem; height: 40rem;">
 				<div class="card-header">
 					Informations générales :
 				</div>
@@ -156,5 +156,6 @@
 				</div>
 			</div>
 		</section>
+	</div>	
 	{% endblock %}
 

@@ -16,10 +16,7 @@
 
 		<link rel="shortcut icon" type="image/png" href="assets/img/P.png">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-		<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-		<link rel="stylesheet" href="assets/css/user.css">
-		<link rel="stylesheet" href="assets/w3css/w3.css">
+
 		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700,400italic,700italic" rel="stylesheet" type="text/css">
 		<link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 		<meta charset="UTF-8">
@@ -54,7 +51,7 @@
 			<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 		{% endblock %}
 	</head>
-	<body>
+	<body class="background-image">
 
 		<header class="container-fluid">
     <div class="row">
@@ -84,14 +81,17 @@
 
 			{% block footer %}
 			        <!-- Ajoutez ici votre contenu de pied de page commun à toutes les pages -->
-			        <footer class="fixed-bottom">
-			            <!-- Contenu du pied de page -->
-						<p>Copyright ® Groupe AutoB - Tous droits réservés.</p>
-						<a href="{{ '/policy.html.twig' }}">Politique de confidentialité</a><br>
-			        	<a href="{{ '/comment-gerer-mon-compte.html.twig' }}">Help</a>
-						<a href="{{ 'http://127.0.0.1:8000/api' }}">API</a>
-			
-					</footer>
+			          <footer class="fixed-bottom">
+        <!-- Contenu du pied de page -->
+        <div class="d-flex justify-content-between align-items-center">
+            <p class="ml-2">Copyright ® Groupe AutoB - Tous droits réservés.</p>
+            <div>
+                <a href="{{ '/policy.html.twig' }}" class="mr-3">Politique de confidentialité</a>
+                <a href="{{ '/comment-gerer-mon-compte.html.twig' }}" class="mr-3">Help</a>
+                <a href="{{ 'http://127.0.0.1:8000/api' }}">API</a>
+            </div>
+        </div>
+    </footer>
 			    {% endblock %}
 			{% block javascript %}
 

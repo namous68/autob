@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\ProfessionnelRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Annotation\IsGranted;
-
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 /**
  * @IsGranted("ROLE_PROFESSIONAL")
  */
@@ -142,4 +142,10 @@ class Professionnel
 
         return $this;
     }
+
+    public function __toString()
+{
+    return $this->nom;
+}
+
 }

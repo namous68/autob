@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Garage;
+use App\Entity\Professionnel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,6 +19,11 @@ class GarageType extends AbstractType
             ->add('adress2')
             ->add('ville')
             ->add('codePostale')
+            ->add('professionnel' ,GarageType::class,[
+                'class' => Professionnel::class,
+                'choice_label' => 'nom', // Ou toute autre propriété à afficher dans le champ select
+                
+                ])
         ;
     }
 

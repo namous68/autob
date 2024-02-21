@@ -52,4 +52,20 @@ public function findAll()
         ->getQuery()
         ->getResult();
 }
+
+/**
+     * Retourne les garages associés à un professionnel spécifique.
+     *
+     * @param int $professionnelId L'ID du professionnel
+     * @return array|null Les garages associés au professionnel
+     */
+    public function findByProfessionnelId(int $professionnelId): array
+    {
+        return $this->createQueryBuilder('g')
+            ->andWhere('g.professionnel = :professionnelId')
+            ->setParameter('professionnelId', $professionnelId)
+            ->getQuery()
+            ->getResult();
+    }
 }
+

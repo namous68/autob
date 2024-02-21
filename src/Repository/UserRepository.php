@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Entity\Professionnel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -63,4 +64,18 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+  /**
+     * @param User 
+     * @return Professionnel|null 
+     */
+    public function getProfessionnel(User $user): ?Professionnel
+    {
+        if (in_array('ROLE_PROFESSIONAL', $user->getRoles(), true)) {
+            return $user->getProfessionnel();
+        }
+
+        return null;
+    }
+
 }

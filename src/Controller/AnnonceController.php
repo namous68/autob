@@ -62,7 +62,7 @@ class AnnonceController extends AbstractController
         $pagination = $paginator->paginate(
             $annonces,
             $request->query->getInt('page', 1),
-            6 // Nombre d'annonces par page
+            9 // Nombre d'annonces par page
         );
 
         return $this->render('index.html.twig',[
@@ -231,7 +231,7 @@ public function contact(Request $request, Annonce $annonce, AnnonceRepository $a
 
 public function sliderAction(EntityManagerInterface $entityManager)
 {
-    $images = $entityManager->getRepository(Image::class)->findAll(); // En supposant que vous ayez une entité "Image" avec une propriété comme "imageUrl"
+    $images = $entityManager->getRepository(Image::class)->findAll(); 
 
     return $this->render('votre_template.html.twig', [
         'images' => $images,

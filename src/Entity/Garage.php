@@ -6,6 +6,7 @@ use App\Repository\GarageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use App\Entity\Professionnel;
 
 #[ORM\Entity(repositoryClass: GarageRepository::class)]
 class Garage
@@ -33,6 +34,9 @@ class Garage
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\ManyToOne(targetEntity: Professionnel::class, inversedBy: 'garages')]
+    private ?Professionnel $professionnel = null;
+
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
@@ -54,6 +58,18 @@ class Garage
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getProfessionnel(): ?Professionnel
+    {
+        return $this->professionnel;
+    }
+
+    public function setProfessionnel(?Professionnel $professionnel): self
+    {
+        $this->professionnel = $professionnel;
+
+        return $this;
     }
 
     public function getNom(): ?string

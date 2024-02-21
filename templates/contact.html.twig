@@ -4,12 +4,21 @@
 
 {% block body %}
     <h1>Contact</h1>
+<div class="contact-container">
+    <div class="contact-form">
+        {{ form_start(form, {'attr': {'class': 'my-custom-form-class'}}) }}
+            <div class="form-group">
+                {{ form_row(form.Name, {'attr': {'class': 'form-control', 'placeholder': 'Votre nom'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.Email, {'attr': {'class': 'form-control', 'placeholder': 'Votre email'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.Message, {'attr': {'class': 'form-control', 'placeholder': 'Votre message'}}) }}
+            </div>
 
-    {{ form_start(form) }}
-        {{ form_row(form.Name) }}
-        {{ form_row(form.Email) }}
-        {{ form_row(form.Message) }}
-
-        <button type="submit">Envoyer</button>
-    {{ form_end(form) }}
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+        {{ form_end(form) }}
+    </div>
+    </div>
 {% endblock %}
