@@ -12,6 +12,13 @@
 
 {% block body %}
 
+<!-- HTML pour le popup -->
+  {% if app.user %}
+        <div id="welcomePopup" class="popup">
+            <span class="close">&times;</span>
+            <p id="welcomeMessage">Welcome, {{ app.user.username }}.. 🚗</p>
+        </div>
+{% endif %}
     <div class="container-fluid">
     
 
@@ -121,5 +128,33 @@
         });
     </script>
 
+<!-- JavaScript pour afficher le popup -->
+ <script>
+          // Vérifie si le pop-up de bienvenue a déjà été affiché
+if (!localStorage.getItem('welcomePopupDisplayed')) {
+    // Affiche le pop-up
+    var welcomePopup = document.getElementById('welcomePopup');
+    welcomePopup.style.display = 'block';
+    welcomePopup.classList.add('active'); 
+
+    localStorage.setItem('welcomePopupDisplayed', 'true');
+}
+
+// Ferme le pop-up lorsqu'on clique sur le bouton de fermeture
+document.getElementsByClassName('close')[0].onclick = function() {
+    var welcomePopup = document.getElementById('welcomePopup');
+    welcomePopup.classList.remove('active'); 
+    setTimeout(function() {
+        welcomePopup.style.display = 'none';
+    }, 300); 
+}
+
+//script pour le lecteur video
+document.addEventListener("DOMContentLoaded", function() {
+    var audio = document.getElementById("myAudio");
+    audio.play();
+});
+
+        </script>
 
 {% endblock %}

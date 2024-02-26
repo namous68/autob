@@ -21,51 +21,49 @@ class GarageRepository extends ServiceEntityRepository
         parent::__construct($registry, Garage::class);
     }
 
-//    /**
-//     * @return Garage[] Returns an array of Garage objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('g')
-//            ->andWhere('g.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('g.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    //    /**
+    //     * @return Garage[] Returns an array of Garage objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('g')
+    //            ->andWhere('g.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('g.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
 
-//    public function findOneBySomeField($value): ?Garage
-//    {
-//        return $this->createQueryBuilder('g')
-//            ->andWhere('g.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    public function findOneBySomeField($value): ?Garage
+    //    {
+    //        return $this->createQueryBuilder('g')
+    //            ->andWhere('g.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 
-public function findAll()
-{
-    return $this->createQueryBuilder('g')
-        ->getQuery()
-        ->getResult();
-}
+    public function findAll()
+    {
+        return $this->createQueryBuilder('g')
+            ->getQuery()
+            ->getResult();
+    }
 
-/**
-     * Retourne les garages associés à un professionnel spécifique.
-     *
-     * @param int $professionnelId L'ID du professionnel
-     * @return array|null Les garages associés au professionnel
+    /**
+ 
+     * @param int $professionnelId 
+     * @return array|null Les garages du professionnel
      */
-    public function findByProfessionnelId(int $professionnelId): array
+    public function findByProfessionnel(int $professionnel): array
     {
         return $this->createQueryBuilder('g')
             ->andWhere('g.professionnel = :professionnelId')
-            ->setParameter('professionnelId', $professionnelId)
+            ->setParameter('professionnelId', $professionnel)
             ->getQuery()
             ->getResult();
     }
 }
-

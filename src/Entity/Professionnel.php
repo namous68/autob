@@ -42,6 +42,15 @@ class Professionnel
     #[ORM\Column]
     private ?bool $estAdmin = null;
 
+    #[ORM\ManyToOne(targetEntity: Garage::class, inversedBy: "professionnels")]
+     private $garage;
+
+    public function getGarage()
+    {
+    return $this->garage;
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;

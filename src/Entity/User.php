@@ -17,11 +17,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-/**
-     * @ORM\ManyToOne(targetEntity=Professionnel::class, inversedBy="users")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $professionnel;
+    
+    #[ORM\ManyToOne(targetEntity: Professionnel::class, inversedBy: "users")]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Professionnel $professionnel;
 
 
     #[ORM\Column(length: 180, unique: true)]
@@ -33,7 +32,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, unique: true, nullable: true)]
     private ?string $userName = null;
 
-    
+
     public function getProfessionnel(): ?Professionnel
     {
         return $this->professionnel;

@@ -27,6 +27,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Controller\Urlizer;
 use App\Entity\Contact;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Security\Core\Security;
 
 
 class AnnonceController extends AbstractController
@@ -238,6 +239,20 @@ public function sliderAction(EntityManagerInterface $entityManager)
     ]);
 }
 
+
+#[Route('/annonces-garage/{garageId}', name: 'app_annonces_garage')]
+public function annoncesGarage($garageId, Security $security): Response
+{
+    $annoncesRepository = $this->entityManager->getRepository(Annonce::class);
+    
+    // Récupérer les annonces pour le garage spécifié par son ID
+    $annonces = $annoncesRepository->findBy(['garage' => $garageId]);
+    dd($annonces);
+    return $this->render('index.html.twig', [
+        'annonces' => $annonces,
+        'id' => $garageId,
+    ]);
+}
 }
 
 

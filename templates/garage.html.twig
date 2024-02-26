@@ -7,24 +7,28 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <!-- Inclure le CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
 {% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container-fluid">
         <section class="results-section">
             <h1>Liste des Garages</h1>
 
             {% if garages is not empty %}
-                <div class="garage-list">
+                <div class="row">
                     {% for garage in garages %}
-                        <div class="card">
-                            <div class="card-body">
-                                <h2 class="card-title">{{ garage.nom }}</h2>
-                                <p class="card-text">Mobile Contact: {{ garage.numerotel }}</p>
-                                <p class="card-text">Adresse: {{ garage.adress1 }} {{ garage.adress2 }}, {{ garage.ville }} {{ garage.codepostale }}</p>
-                                
-                                 <a href="#" class="card-link" data-garage="{{ garage.nom }}">Annonce Du Garage</a>
-                                {# Ajoutez d'autres champs en fonction de vos besoins #}
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h2 class="card-title">{{ garage.nom }}</h2>
+                                    <p class="card-text">Mobile Contact: {{ garage.numerotel }}</p>
+                                    <p class="card-text">Adresse: {{ garage.adress1 }} {{ garage.adress2 }}, {{ garage.ville }} {{ garage.codepostale }}</p>
+<a href="#" class="btn btn-primary card-link" id="btn-annonce-du-garage" data-garage="{{ garage.nom }}">Annonce Du Garage</a>
+<div id="annonces-container"></div>
+                                    {# Ajoutez d'autres champs en fonction de vos besoins #}
+                                </div>
                             </div>
                         </div>
                     {% endfor %}
@@ -35,8 +39,11 @@
         </section>
     </div>
 
+    <!-- Inclure le JavaScript de Bootstrap (jQuery requis) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 
-     <script>
+    <script>
         document.addEventListener('DOMContentLoaded', function () {
             var annonceLinks = document.querySelectorAll('.card-link');
 
@@ -44,12 +51,28 @@
                 link.addEventListener('click', function (event) {
                     event.preventDefault();
                     var garageNom = this.getAttribute('data-garage');
-                    // Encodez le nom du garage pour l'URL
-                    var encodedGarageNom = encodeURIComponent(garageNom);
+                var garageId = this.getAttribute('data-garage-id');
+                var encodedGarageNom = encodeURIComponent(garageNom);
                     // Redirigez vers la page qui affiche les résultats de recherche pour le garage
-                    window.location.href = "{{ path('app_annonces_search') }}?garage=" + encodedGarageNom;
-                });
+                    window.location.href = "{{ path('app_annonces_garage', {'garageId': 'GARAGE_ID'}) }}".replace('GARAGE_ID', garageId);
+            });
             });
         });
+
+        //script pour afficher les annonce du garage
+        document.addEventListener("DOMContentLoaded", function() {
+    const links = document.querySelectorAll('.card-link');
+    links.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            event.preventDefault(); // Empêche le comportement par défaut du lien
+
+            const garageNom = link.dataset.garage;
+            // Rediriger l'utilisateur vers la page d'annonces du garage sélectionné
+            window.location.href = '/annonces-garage/' + encodeURIComponent(garageNom);
+        });
+    });
+});
+
     </script>
+
 {% endblock %}

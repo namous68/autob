@@ -91,6 +91,12 @@
                 <a href="{{ 'http://127.0.0.1:8000/api' }}">API</a>
             </div>
         </div>
+		<div>
+		<audio id="myAudio">
+          <source src="{{ asset('./public/media/song/musique') }}" type="audio/mpeg">
+           Your browser does not support the audio element.
+          </audio>
+		  </div>
     </footer>
 			    {% endblock %}
 			{% block javascript %}

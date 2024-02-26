@@ -20,9 +20,13 @@ use App\Controller\Admin\AdminUrlGenerator;
 use App\Entity\Contact;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\ProfessionnelType;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud as ConfigCrud;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
+use EasyCorp\Bundle\EasyAdminBundle\Crud\Crud;
+
+
 
 
 class DashboardController extends AbstractDashboardController
@@ -39,17 +43,21 @@ class DashboardController extends AbstractDashboardController
     }
 
     #[Route('/admin/garages', name: 'admin_garages')]
-    public function listGarages(): Response
+    public function listGarages( Security $security, GarageRepository $garageRepository): Response
     {
-        // Récupérer le professionnel connecté
-        $professionel = $this->security->getUser();
+        /**
+         * @var User $professionnel
+         */
+        $professionnel = $security->getUser();
 
         // Récupérer les garages du professionnel connecté
-        $garages = $this->entityManager->getRepository(Garage::class)->findBy(['professionel' => $professionel]);
+        $garages = $garageRepository->findBy(['professionnel' => $professionnel->getProfessionnel()]);
 
         // Afficher les garages
-        return $this->render('admin/garages.html.twig', [
+        return $this->render('/garage.html.twig', [
             'garages' => $garages,
+            
+            
         ]);
     }
 
@@ -78,61 +86,80 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Admin Dashboard');
+            ->setTitle('===AutoB CMS===');
     }
+
+    
 
     public function configureMenuItems(): iterable
     {
         if ($this->isGranted('ROLE_ADMIN')) {
+
+            
+            
             yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+
+            
             // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
-            yield MenuItem::linkToCrud('Les Annonce', 'fas fa-list', Annonce::class);
-            yield MenuItem::linkToCrud('Message', 'fas fa-list', Contact::class);
-            yield MenuItem::linkToCrud('Carburant', 'fas fa-list', Carburant::class);
-            yield MenuItem::linkToCrud('Les Garage', 'fas fa-list', Garage::class);
+            yield MenuItem::linkToCrud('Les Annonce', 'fas fa-bullhorn', Annonce::class);
+            yield MenuItem::linkToCrud('Message', 'fas fa-address-book', Contact::class);
+            yield MenuItem::linkToCrud('Carburant', 'fas fa-car', Carburant::class);
+            yield MenuItem::linkToCrud('Les Garage', 'fas fa-warehouse', Garage::class);
             yield MenuItem::linkToCrud('Les Marque', 'fas fa-list', Marque::class);
             yield MenuItem::linkToCrud('Les Model', 'fas fa-list', Model::class);
             yield MenuItem::linkToCrud('Professionnel', 'fas fa-list', Professionnel::class);
             yield MenuItem::linkToCrud('List User', 'fas fa-list', User::class);
-
-            //role pour un professionnel
         }
         if ($this->isGranted('ROLE_PROFESSIONAL')) {
 
+            /**
+             * @var User $user
+             */
+            $user = $this->getUser();
 
-            /* $user = $this->getUser();
+            if ($user && $user->getProfessionnel()) {
 
-    if ($user && $user->getProfessionnel()) {
-        // Récupérer l'id
-        $professionnelId = $user->getProfessionnel()->getId();
+                 $professionnelId = $user->getProfessionnel()->getId();
 
-        // Récupérer les garages du pro
-        $garages = $this->entityManager->getRepository(Garage::class)->findByProfessionnelId($professionnelId);
+                $garages = $this->entityManager->getRepository(Garage::class)->findBy(['professionnel' => $user->getProfessionnel()]);
 
-        foreach ($garages as $garage) {
-        
-            yield MenuItem::linkToCrud($garage->getName(), 'fas fa-list', Garage::class)
-                ->setController(GarageCrudController::class)
-                ->setDefaultSort(['id' => 'ASC']); 
-        
-    } 
-            yield MenuItem::linkToCrud('Garage', 'fas fa-list', Garage::class);
-            yield MenuItem::linkToCrud('Annonce', 'fas fa-list', Annonce::class);
-            
-            yield MenuItem::linkToCrud('Contact', 'fas fa-list', Contact::class);
+                // dd($garages);
+                
          
-}else {
-                echo "Une erreur s'est produite. Le professionnel est introuvable.";
-            }*/
+
+        
+    
+
+                //foreach ($garages as $garage) {
+                   // yield MenuItem::linkToCrud($garage->getNom(), 'fas fa-list', Garage::class)
+                    //->setController(GarageCrudController::class)
+                  //  ->setEntityId($garage->getId()
+                // );
+              //  }
+
+                // foreach ($garages as $garage) {
+                //     yield MenuItem::subMenu($garage->getNom(), 'fas fa-list')->setSubItems([
+                //         MenuItem::linkToCrud($garage->getNom(), 'fas fa-list', Garage::class)
+                //             ->setController(GarageCrudController::class)
+                //             ->setDefaultSort(['id' => 'ASC']),
+                //     ]);
+                // }
+            //} else {
+              //  echo "Erreur.. Le professionnel est introuvable.";
+            //}
+            yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
 
 
-            yield MenuItem::linkToCrud('Garage', 'fas fa-list', Garage::class);
-            yield MenuItem::linkToCrud('Annonce', 'fas fa-list', Annonce::class);
+            
+            yield MenuItem::linkToCrud('Garage', 'fas fa-warehouse', Garage::class);
+            yield MenuItem::linkToCrud('Annonce', 'fas fa-bullhorn', Annonce::class);
 
-            yield MenuItem::linkToCrud('Contact', 'fas fa-list', Contact::class);
+            yield MenuItem::linkToCrud('Contact', 'fas fa-address-book', Contact::class);
         }
         // return $menuItems;
     }
+    }
+
 
 
 
@@ -149,4 +176,7 @@ class DashboardController extends AbstractDashboardController
             'contactMessages' => $contactMessages,
         ]);
     }
+
+
+    
 }
