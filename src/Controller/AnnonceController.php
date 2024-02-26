@@ -247,7 +247,7 @@ public function annoncesGarage($garageId, Security $security): Response
     
     // Récupérer les annonces pour le garage spécifié par son ID
     $annonces = $annoncesRepository->findBy(['garage' => $garageId]);
-    dd($annonces);
+    
     return $this->render('index.html.twig', [
         'annonces' => $annonces,
         'id' => $garageId,
